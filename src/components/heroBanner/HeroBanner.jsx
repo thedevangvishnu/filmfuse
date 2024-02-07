@@ -36,7 +36,7 @@ const HeroBanner = () => {
       <ContentWrapper>
         <h1 className="heroTitle">FilmFuse</h1>
         <p className="heroDescription">
-          A show hub for your favourite Movies and TV shows. Explore now!
+          A hub for your favourite Movies and TV shows. Explore now!
         </p>
 
         <div className="searchContainer">

@@ -11,7 +11,7 @@
   --blackThree: #0f0525;
   --purple: #8c52ff;
   --orange: #ff914d;
-  --gradient: linear-gradient(90deg, #8c52ff, #ff914d);
+  --gradient: linear-gradient(90deg, #793eee, #fc8135);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -35,6 +35,10 @@ a {
 
 li {
   list-style-type: none;
+}
+
+button {
+  background: var(--gradient);
 }
 
 ::-webkit-scrollbar {

@@ -1,0 +1,89 @@
+@import "../../mixins.scss";
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  z-index: 3;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  @include md {
+    height: 80px;
+    padding: 0 30px;
+  }
+
+  &.show {
+    background-color: rgb(7, 1, 20, 0.2);
+    backdrop-filter: blur(5px);
+  }
+
+  .contentWrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .logoContainer {
+      width: 160px;
+      height: 100%;
+
+      @include md {
+        width: 200px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .menuItems {
+      display: none;
+      color: white;
+
+      @include md {
+        display: flex;
+        align-items: center;
+      }
+
+      .menuItem {
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 18px;
+        transition: all 0.4s;
+
+        &:hover {
+          color: var(--orange);
+        }
+
+        @include md {
+          margin-left: 30px;
+        }
+      }
+    }
+  }
+
+  &.mobileView {
+    background-color: var(--black);
+
+    .menuItems {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      padding: 20px 0;
+      background-color: var(--black);
+
+      .menuItem {
+        padding: 16px 10px;
+        cursor: pointer;
+      }
+    }
+  }
+}
