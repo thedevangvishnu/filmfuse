@@ -1,18 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import fetchDataFromApi from "./utils/api";
+import useFetch from "./hooks/useFetch";
 
 function App() {
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetchDataFromApi("/movie/popular");
-      console.log(response.data);
-    };
-
-    fetchData();
-  }, []);
-
-  return <h1>FilmFuse</h1>;
+  return (
+    <>
+      <h1>FilmFuse</h1>
+    </>
+  );
 }
 
 export default App;
