@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+import LazyImage from "../lazyLoadImage/LazyImage";
+import ContentWrapper from "../contentWrapper/ContentWrapper";
+
 import useFetch from "../../hooks/useFetch";
 
 import "./HeroBanner.styles.scss";
@@ -9,7 +12,7 @@ const HeroBanner = () => {
 
   const [bgUrl, setBgUrl] = useState("");
 
-  const { data } = useFetch("/movie/upcoming");
+  const { isLoading, data } = useFetch("/movie/upcoming");
 
   const BASE_URL = "https://image.tmdb.org/t/p/original";
 
@@ -24,10 +27,29 @@ const HeroBanner = () => {
   return (
     <div className="heroBanner">
       {/* banner img */}
-      <div className="bannerContainer">
-        <img src={bgUrl} alt="Backdrop Poster" />
-      </div>
+      {!isLoading && (
+        <div className="bannerContainer">
+          <LazyImage src={bgUrl} />
+        </div>
+      )}
       {/* content */}
+      <ContentWrapper>
+        <h1 className="heroTitle">FilmFuse</h1>
+        <p className="heroDescription">
+          A show hub for your favourite Movies and TV shows. Explore now!
+        </p>
+
+        <div className="searchContainer">
+          <input
+            type="text"
+            placeholder="Search movies or TV shows..."
+            className="searchInput"
+          />
+          <button className="searchButton">Search</button>
+        </div>
+      </ContentWrapper>
+
+      <div className="overlayContainer"></div>
     </div>
   );
 };
