@@ -1,7 +1,10 @@
+@import "../../mixins.scss";
+
 .heroBanner {
   width: 100%;
   display: flex;
   align-items: center;
+  background-color: var(--black);
 
   .bannerContainer {
     position: absolute;
@@ -10,6 +13,11 @@
     width: 100%;
     height: 450px;
     display: flex;
+    opacity: 1;
+
+    @include md {
+      height: 700px;
+    }
 
     img {
       width: 100%;
