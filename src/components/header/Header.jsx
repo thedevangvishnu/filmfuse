@@ -10,13 +10,35 @@ import Logo from "../../assets/images/logo.png";
 import "./Header.styles.scss";
 
 const Header = () => {
-  const [headerBg, setHeaderBg] = useState("top");
-  //   showMobileMenu is the state where mobile menu is being shown
+  const [headerBgClass, setHeaderBgClass] = useState("top");
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [showMobileMenu, setShowMobileMenu] = useState(null);
   const [showSearch, setShowSearch] = useState(null);
   const [query, setQuery] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.addEventListener("scroll", monitorHeaderBgState);
+
+    return () => {
+      window.removeEventListener("scroll", monitorHeaderBgState);
+    };
+  }, [lastScrollY]);
+
+  const monitorHeaderBgState = () => {
+    if (window.scrollY > 200) {
+      if (window.scrollY > lastScrollY && !showMobileMenu) {
+        setHeaderBgClass("hide");
+      } else {
+        setHeaderBgClass("show");
+      }
+    } else {
+      setHeaderBgClass("top");
+    }
+
+    setLastScrollY(window.scrollY);
+  };
 
   const openMobileMenu = () => {
     setShowMobileMenu(true);
@@ -43,7 +65,9 @@ const Header = () => {
 
   return (
     <header
-      className={`header ${showMobileMenu ? "mobileViewActive" : ""} top`}
+      className={`header ${
+        showMobileMenu ? "mobileViewActive" : ""
+      } ${headerBgClass}`}
     >
       <ContentWrapper>
         {/* logo */}

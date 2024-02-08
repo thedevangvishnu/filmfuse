@@ -8,6 +8,7 @@ const Home = () => {
   return (
     <div className="homeComponent">
       <HeroBanner />
+      <div style={{ height: "2000px" }}></div>
     </div>
   );
 };
