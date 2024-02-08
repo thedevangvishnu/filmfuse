@@ -1,7 +1,42 @@
 @import "../../mixins.scss";
 
 .carouselContainer {
-  margin-top: 20px;
+  position: relative;
+  margin-top: 15px;
+
+  .leftArrowContainer,
+  .rightArrowContainer {
+    position: absolute;
+    top: 40%;
+    z-index: 4;
+  }
+
+  .leftArrowContainer {
+    left: 20px;
+    @include md {
+      left: 40px;
+    }
+  }
+
+  .rightArrowContainer {
+    right: 10px;
+    @include md {
+      right: 30px;
+    }
+  }
+
+  .arrow {
+    font-size: 1.75rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s;
+    &:hover {
+      color: white;
+    }
+    @include md {
+      font-size: 2rem;
+    }
+  }
 
   .contentWrapper {
     position: relative;
@@ -60,6 +95,11 @@
 
         .title {
           margin-top: 10px;
+          @include md {
+            margin-top: 20px;
+            font-size: 20px;
+            line-height: 1.3;
+          }
         }
       }
     }

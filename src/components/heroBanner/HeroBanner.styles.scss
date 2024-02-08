@@ -93,8 +93,8 @@
         outline: none;
         border: none;
         height: 50px;
-        padding: 0 1.5rem;
-        font-size: 14px;
+        padding: 0 1rem;
+        font-size: 0.8rem;
         border-radius: 0 30px 30px 0;
         text-transform: uppercase;
         color: white;
@@ -104,6 +104,8 @@
 
         @include md {
           height: 60px;
+          padding: 0 1.5rem;
+          font-size: 1rem;
         }
       }
     }

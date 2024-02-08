@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 
 import "./Carousel.styles.scss";
 import ContentWrapper from "../contentWrapper/ContentWrapper";
@@ -9,6 +10,13 @@ const Carousel = ({ content }) => {
 
   return (
     <div className="carouselContainer">
+      <div className="leftArrowContainer">
+        <FaCircleChevronLeft className="arrow" />
+      </div>
+
+      <div className="rightArrowContainer">
+        <FaCircleChevronRight className="arrow" />
+      </div>
       <ContentWrapper>
         <div className="carouselItems">
           {content?.results?.map((item) => {
