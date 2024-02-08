@@ -107,6 +107,19 @@
         }
       }
     }
+
+    .errorContainer {
+      position: absolute;
+      bottom: 5rem;
+      color: var(--orange);
+      font-weight: 700;
+      font-style: italic;
+
+      @include md {
+        bottom: 7rem;
+        font-size: 18px;
+      }
+    }
   }
 
   .overlayContainer {

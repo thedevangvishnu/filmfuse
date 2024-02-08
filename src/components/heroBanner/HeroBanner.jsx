@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import LazyImage from "../lazyLoadImage/LazyImage";
 import ContentWrapper from "../contentWrapper/ContentWrapper";
@@ -11,7 +12,9 @@ const HeroBanner = () => {
   // fetch a random movie from movie upcoming and take out the backdrop_url and combine it with the /configuration url and set to backgroundUrl state variable
 
   const [bgUrl, setBgUrl] = useState("");
-
+  const [query, setQuery] = useState("");
+  const [queryError, setQueryError] = useState(null);
+  const navigate = useNavigate();
   const { isLoading, data } = useFetch("/movie/upcoming");
 
   const BASE_URL = "https://image.tmdb.org/t/p/original";
@@ -23,6 +26,29 @@ const HeroBanner = () => {
         ?.backdrop_path;
     setBgUrl(bgFullPath);
   }, [data]);
+
+  const onKeyUpHandler = (event) => {
+    if (event.target.value !== "" && event.key === "Enter") {
+      // navigate to search page
+      navigate(`/search/${query}`);
+    } else {
+      setQueryError("Please enter some valid input!");
+      setTimeout(() => {
+        setQueryError(null);
+      }, 3000);
+    }
+  };
+
+  const onClickHandler = () => {
+    if (query.length > 0) {
+      navigate(`/search/${query}`);
+    } else {
+      setQueryError("Please enter some valid input!");
+      setTimeout(() => {
+        setQueryError(null);
+      }, 3000);
+    }
+  };
 
   return (
     <div className="heroBanner">
@@ -44,8 +70,17 @@ const HeroBanner = () => {
             type="text"
             placeholder="Search movies or TV shows..."
             className="searchInput"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            onKeyUp={onKeyUpHandler}
           />
-          <button className="searchButton">Search</button>
+          <button className="searchButton" onClick={onClickHandler}>
+            Search
+          </button>
+        </div>
+
+        <div className="errorContainer">
+          {queryError && <p>{queryError}</p>}
         </div>
       </ContentWrapper>
 
