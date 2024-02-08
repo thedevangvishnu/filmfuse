@@ -1,3 +1,5 @@
+@import "../../mixins.scss";
+
 .carouselContainer {
   margin-top: 20px;
 
@@ -8,28 +10,43 @@
     .carouselItems {
       position: relative;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       overflow-y: hidden;
+      padding-left: 10px;
 
       .carouselItem {
-        min-width: 180px;
+        min-width: 150px;
         cursor: pointer;
-        padding: 15px;
+        padding-block: 15px;
+        margin-right: 20px;
+
+        @include md {
+          min-width: calc(25% - 10px);
+          margin-right: 25px;
+        }
+
+        @include lg {
+          min-width: calc((20% - 10px));
+          margin-right: 30px;
+        }
 
         .posterContainer {
           width: 100%;
           height: 100%;
           position: relative;
           display: flex;
+          align-items: center;
           justify-content: center;
-          align-items: end;
+          overflow: hidden;
+          border-radius: 20px;
+          transition: all 0.3s;
+
+          &:hover {
+            transform: scale(1.06);
+          }
 
           .lazy-load-image-background {
             position: relative;
-            // transition: all 0.3s;
-            // &:hover {
-            //   transform: scale(1.05);
-            // }
 
             img {
               width: 100%;

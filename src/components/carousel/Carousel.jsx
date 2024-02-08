@@ -23,8 +23,6 @@ const Carousel = ({ content }) => {
 
                 {/* title */}
                 <h4 className="title">{item.title || item.name}</h4>
-
-                {/* date */}
               </div>
             );
           })}
