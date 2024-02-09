@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
+import dayjs from "dayjs";
 
 import "./Carousel.styles.scss";
 import ContentWrapper from "../contentWrapper/ContentWrapper";
@@ -19,7 +20,7 @@ const Carousel = ({ content }) => {
       </div>
       <ContentWrapper>
         <div className="carouselItems">
-          {content?.results?.map((item) => {
+          {content?.map((item) => {
             const posterPath = item.poster_path;
             const fullPosterUrl = BASE_URL + posterPath;
 
@@ -29,8 +30,15 @@ const Carousel = ({ content }) => {
                   <LazyImage src={fullPosterUrl} className="posterImg" />
                 </div>
 
-                {/* title */}
-                <h4 className="title">{item.title || item.name}</h4>
+                <div className="textContainer">
+                  {/* title */}
+                  <h4 className="title">{item.title || item.name}</h4>
+                  <p className="date">
+                    {dayjs(item?.release_date || item?.first_air_date).format(
+                      "MMM D, YYYY"
+                    )}
+                  </p>
+                </div>
               </div>
             );
           })}

@@ -22,7 +22,7 @@ const Trending = () => {
         <SwitchTabs tabs={["Day", "Week"]} onTabChange={onTabChangeHandler} />
       </ContentWrapper>
 
-      <Carousel content={data} />
+      <Carousel content={data?.results} />
     </div>
   );
 };
