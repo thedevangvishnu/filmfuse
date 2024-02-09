@@ -5,6 +5,7 @@ import Trending from "./trending/Trending";
 
 import "./Home.styles.scss";
 import Popular from "./popular/Popular";
+import TopRated from "./topRated/TopRated";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       <HeroBanner />
       <Trending />
       <Popular />
+      <TopRated />
       <div style={{ height: "2000px" }}></div>
     </div>
   );
