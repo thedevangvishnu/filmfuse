@@ -8,7 +8,7 @@ import ContentWrapper from "../contentWrapper/ContentWrapper";
 import LazyImage from "../lazyLoadImage/LazyImage";
 import CircleRating from "../circleRating/CircleRating";
 
-const Carousel = ({ content, isLoading }) => {
+const Carousel = ({ content, isLoading, endPoint }) => {
   const carouselItemsContainer = useRef();
   const navigate = useNavigate();
 
@@ -50,7 +50,9 @@ const Carousel = ({ content, isLoading }) => {
                 <div
                   key={item?.id}
                   className="carouselItem"
-                  onClick={() => navigate(`/${item?.media_type}/${item?.id}`)}
+                  onClick={() =>
+                    navigate(`/${item?.media_type || endPoint}/${item?.id}`)
+                  }
                 >
                   <div className="posterContainer">
                     <LazyImage src={fullPosterUrl} className="posterImg" />

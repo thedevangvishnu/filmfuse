@@ -8,7 +8,7 @@ const SwitchTabs = ({ tabs, onTabChange }) => {
 
   const activateTab = (tab, index) => {
     setActiveTabIndex(index);
-    setLeftPosition(index * 80);
+    setLeftPosition(index * 90);
     onTabChange(tab);
   };
 

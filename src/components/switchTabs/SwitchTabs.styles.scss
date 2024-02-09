@@ -19,7 +19,7 @@
     justify-content: center;
 
     .tabItem {
-      width: 80px;
+      width: 90px;
       height: 100%;
       display: flex;
       align-items: center;
@@ -38,7 +38,7 @@
       }
 
       @include md {
-        font-size: 1.05rem;
+        font-size: 1rem;
       }
     }
 
@@ -47,7 +47,7 @@
       top: 0;
       left: 0;
       border-radius: 30px;
-      width: 80px;
+      width: 90px;
       height: 100%;
       background: var(--gradient);
     }
