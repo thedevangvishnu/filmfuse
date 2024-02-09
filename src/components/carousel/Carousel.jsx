@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 import dayjs from "dayjs";
 
@@ -7,19 +8,37 @@ import ContentWrapper from "../contentWrapper/ContentWrapper";
 import LazyImage from "../lazyLoadImage/LazyImage";
 
 const Carousel = ({ content }) => {
+  const carouselItemsContainer = useRef();
+
   const BASE_URL = "https://image.tmdb.org/t/p/original";
+
+  const scrollContainer = (direction) => {
+    const container = carouselItemsContainer.current;
+    const scrollWidth = container.offsetWidth + 20;
+    container.scrollBy({
+      left: direction === "left" ? -scrollWidth : scrollWidth,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <div className="carouselContainer">
-      <div className="leftArrowContainer">
+      <div
+        className="leftArrowContainer"
+        onClick={() => scrollContainer("left")}
+      >
         <FaCircleChevronLeft className="arrow" />
       </div>
 
-      <div className="rightArrowContainer">
+      <div
+        className="rightArrowContainer"
+        onClick={() => scrollContainer("right")}
+      >
         <FaCircleChevronRight className="arrow" />
       </div>
+
       <ContentWrapper>
-        <div className="carouselItems">
+        <div className="carouselItems" ref={carouselItemsContainer}>
           {content?.map((item) => {
             const posterPath = item.poster_path;
             const fullPosterUrl = BASE_URL + posterPath;
