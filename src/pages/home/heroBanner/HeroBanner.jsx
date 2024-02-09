@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import LazyImage from "../lazyLoadImage/LazyImage";
-import ContentWrapper from "../contentWrapper/ContentWrapper";
+import LazyImage from "../../../components/lazyLoadImage/LazyImage";
+import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 
-import useFetch from "../../hooks/useFetch";
+import useFetch from "../../../hooks/useFetch";
 
 import "./HeroBanner.styles.scss";
 

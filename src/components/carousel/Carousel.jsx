@@ -6,9 +6,11 @@ import dayjs from "dayjs";
 import "./Carousel.styles.scss";
 import ContentWrapper from "../contentWrapper/ContentWrapper";
 import LazyImage from "../lazyLoadImage/LazyImage";
+import CircleRating from "../circleRating/CircleRating";
 
-const Carousel = ({ content }) => {
+const Carousel = ({ content, isLoading }) => {
   const carouselItemsContainer = useRef();
+  const navigate = useNavigate();
 
   const BASE_URL = "https://image.tmdb.org/t/p/original";
 
@@ -39,28 +41,37 @@ const Carousel = ({ content }) => {
 
       <ContentWrapper>
         <div className="carouselItems" ref={carouselItemsContainer}>
-          {content?.map((item) => {
-            const posterPath = item.poster_path;
-            const fullPosterUrl = BASE_URL + posterPath;
+          {!isLoading &&
+            content?.map((item) => {
+              const posterPath = item?.poster_path;
+              const fullPosterUrl = BASE_URL + posterPath;
 
-            return (
-              <div key={item.id} className="carouselItem">
-                <div className="posterContainer">
-                  <LazyImage src={fullPosterUrl} className="posterImg" />
-                </div>
+              return (
+                <div
+                  key={item?.id}
+                  className="carouselItem"
+                  onClick={() => navigate(`/${item?.media_type}/${item?.id}`)}
+                >
+                  <div className="posterContainer">
+                    <LazyImage src={fullPosterUrl} className="posterImg" />
+                  </div>
 
-                <div className="textContainer">
-                  {/* title */}
-                  <h4 className="title">{item.title || item.name}</h4>
-                  <p className="date">
-                    {dayjs(item?.release_date || item?.first_air_date).format(
-                      "MMM D, YYYY"
-                    )}
-                  </p>
+                  <div className="ratingContainer">
+                    <CircleRating rating={item?.vote_average.toFixed(1)} />
+                  </div>
+
+                  <div className="textContainer">
+                    {/* title */}
+                    <h4 className="title">{item?.title || item?.name}</h4>
+                    <p className="date">
+                      {dayjs(item?.release_date || item?.first_air_date).format(
+                        "MMM D, YYYY"
+                      )}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </ContentWrapper>
     </div>

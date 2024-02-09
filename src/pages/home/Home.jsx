@@ -1,7 +1,7 @@
 import React from "react";
 
-import HeroBanner from "../../components/heroBanner/HeroBanner";
-import Trending from "../../components/trending/Trending";
+import HeroBanner from "./heroBanner/HeroBanner";
+import Trending from "./trending/Trending";
 
 import "./Home.styles.scss";
 

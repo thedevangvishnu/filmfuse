@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-import ContentWrapper from "../contentWrapper/ContentWrapper";
-import SwitchTabs from "../switchTabs/SwitchTabs";
+import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
+import SwitchTabs from "../../../components/switchTabs/SwitchTabs";
 
-import useFetch from "../../hooks/useFetch";
-import Carousel from "../carousel/Carousel";
+import useFetch from "../../../hooks/useFetch";
+import Carousel from "../../../components/carousel/Carousel";
 
 const Trending = () => {
   const [timePeriod, setTimePeriod] = useState("day");
 
-  const { data } = useFetch(`/trending/all/${timePeriod}`);
+  const { data, isLoading } = useFetch(`/trending/all/${timePeriod}`);
 
   const onTabChangeHandler = (tab) => {
     setTimePeriod(tab === "Day" ? "day" : "week");
@@ -22,7 +22,7 @@ const Trending = () => {
         <SwitchTabs tabs={["Day", "Week"]} onTabChange={onTabChangeHandler} />
       </ContentWrapper>
 
-      <Carousel content={data?.results} />
+      <Carousel content={data?.results} isLoading={isLoading} />
     </div>
   );
 };
