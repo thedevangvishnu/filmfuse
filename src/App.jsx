@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/search/:query" element={<SearchResult />} />
         <Route path="/explore/:mediaType" element={<Explore />} />
-        <Route path="/:mediatype/:id" element={<Details />} />
+        <Route path="/:mediaType/:id" element={<Details />} />
       </Routes>
       {/* <Footer /> */}
     </BrowserRouter>
