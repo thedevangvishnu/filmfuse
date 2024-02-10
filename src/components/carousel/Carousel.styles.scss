@@ -60,11 +60,16 @@
         margin-right: 20px;
 
         @include md {
-          min-width: calc(25% - 10px);
+          min-width: calc(28% - 10px);
           margin-right: 25px;
         }
 
         @include lg {
+          min-width: calc((23% - 10px));
+          margin-right: 30px;
+        }
+
+        @include xl {
           min-width: calc((20% - 10px));
           margin-right: 30px;
         }
@@ -103,6 +108,50 @@
               border-radius: 20px;
             }
           }
+
+          .genres {
+            display: none;
+
+            @include md {
+              position: absolute;
+              z-index: 3;
+              display: flex;
+              flex-wrap: wrap;
+              align-items: flex-end;
+              justify-content: flex-end;
+              width: 110px;
+              bottom: 10px;
+              right: 10px;
+              gap: 8px;
+
+              @include xl {
+                width: 130px;
+                bottom: 10px;
+                right: 10px;
+                gap: 8px;
+              }
+
+              .genreItem {
+                background: var(--orangeDark);
+                font-weight: 500;
+                box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+                font-size: 0.65rem;
+                border-radius: 10px;
+                padding: 3px 6px;
+
+                @include lg {
+                  font-weight: 700;
+                }
+
+                @include xl {
+                  font-size: 0.75rem;
+
+                  border-radius: 10px;
+                  padding: 3px 8px;
+                }
+              }
+            }
+          }
         }
 
         .ratingContainer {
@@ -117,7 +166,7 @@
           @include md {
             width: 55px;
             height: 55px;
-            margin-left: 20px;
+            margin-left: 10px;
           }
         }
 

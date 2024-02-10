@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 import dayjs from "dayjs";
@@ -7,6 +7,7 @@ import "./Carousel.styles.scss";
 import ContentWrapper from "../contentWrapper/ContentWrapper";
 import LazyImage from "../lazyLoadImage/LazyImage";
 import CircleRating from "../circleRating/CircleRating";
+import Genres from "../genres/Genres";
 
 const Carousel = ({ content, isLoading, endPoint }) => {
   const carouselItemsContainer = useRef();
@@ -56,6 +57,7 @@ const Carousel = ({ content, isLoading, endPoint }) => {
                 >
                   <div className="posterContainer">
                     <LazyImage src={fullPosterUrl} className="posterImg" />
+                    <Genres genreIds={item?.genre_ids.slice(0, 2)} />
                   </div>
 
                   <div className="ratingContainer">

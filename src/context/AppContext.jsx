@@ -7,6 +7,7 @@ export const AppContext = createContext({
 
 export const AppProvider = ({ children }) => {
   const [genres, setGenres] = useState({});
+  const [isGenresLoading, setIsGenresLoading] = useState(true);
 
   useEffect(() => {
     fetchGenres();
@@ -22,14 +23,24 @@ export const AppProvider = ({ children }) => {
       promises.push(promise);
     });
 
-    const data = await Promise.all(promises);
-    data.map(({ genres }) => {
-      return genres.map((genre) => (allGenres[genre.id] = genre));
-    });
-    setGenres(allGenres);
+    try {
+      const data = await Promise.all(promises);
+      data?.map(({ genres }) => {
+        return genres?.map((genre) => (allGenres[genre?.id] = genre));
+      });
+      setGenres(allGenres);
+      setIsGenresLoading(false);
+    } catch (error) {
+      setIsGenresLoading(false);
+      throw new Error("Error fetching genres from API");
+    }
   };
 
   const value = { genres };
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={value}>
+      {isGenresLoading ? <h2>Loading data...</h2> : children}
+    </AppContext.Provider>
+  );
 };

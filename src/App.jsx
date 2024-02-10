@@ -7,6 +7,8 @@ import SearchResult from "./pages/searchResult/SearchResult";
 import Explore from "./pages/explore/Explore";
 import Details from "./pages/details/Details";
 
+import { AppContext } from "./context/AppContext";
+
 function App() {
   return (
     <BrowserRouter>
