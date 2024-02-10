@@ -27,6 +27,19 @@
     }
   }
 
+  .overlayContainer {
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(
+      180deg,
+      rgb(15, 5, 37, 0) 5%,
+      rgb(10, 3, 26, 1) 78%
+    );
+  }
+
   .contentWrapper {
     width: 100%;
     height: 100%;
@@ -35,11 +48,18 @@
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    padding-inline: 2rem;
+    padding-inline: 1.5rem;
 
     @include md {
       flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
       padding-inline: 4rem;
+      gap: 1.5rem;
+    }
+
+    @include lg {
+      gap: 2rem;
     }
 
     .leftSection,
@@ -47,9 +67,13 @@
       position: relative;
       width: 100%;
       height: 100%;
+    }
 
-      @include md {
+    @include lg {
+      .leftSection {
         width: 50%;
+        display: flex;
+        justify-content: center;
       }
     }
 
@@ -90,6 +114,10 @@
           gap: 0.75rem;
           font-size: 1.35rem;
 
+          @include lg {
+            font-size: 1.75rem;
+          }
+
           span {
             font-weight: 400;
             color: #aaa;
@@ -101,17 +129,27 @@
           font-size: 1.1rem;
           font-style: italic;
           color: #aaa;
+
+          @include lg {
+            font-size: 1.25rem;
+          }
         }
       }
 
       .genresContainer {
         .genres {
-          gap: 0.5rem;
+          gap: 0.75rem;
+          flex-wrap: wrap;
 
           .genreItem {
             font-size: 0.8rem;
             font-weight: 700;
             padding-inline: 10px;
+
+            @include lg {
+              font-size: 0.9rem;
+              padding-inline: 15px;
+            }
           }
         }
       }
@@ -125,12 +163,85 @@
           width: 60px;
           background-color: transparent;
 
+          @include md {
+            width: 80px;
+          }
+
           .CircularProgressbar-trail {
             stroke: var(--black);
           }
 
           .CircularProgressbar-text {
             fill: white;
+          }
+        }
+      }
+
+      .overviewContainer {
+        margin-top: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .overviewHeading {
+          font-size: 1.25rem;
+          font-weight: 600;
+
+          @include lg {
+            font-size: 1.5rem;
+          }
+        }
+
+        .overviewContent {
+          color: #ccc;
+
+          @include lg {
+            width: 70%;
+          }
+        }
+      }
+
+      .metaDataItems {
+        display: flex;
+        flex-direction: column;
+
+        .metaDataItem {
+          margin-top: 1.5rem;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding-bottom: 1rem;
+          border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+
+          @include md {
+            gap: 1.25rem;
+          }
+
+          @include lg {
+            gap: 3.5rem;
+          }
+
+          .subItem {
+            display: flex;
+            flex-direction: column;
+
+            @include md {
+              font-size: 1.1rem;
+            }
+
+            .tag {
+              font-weight: 600;
+            }
+            .value {
+              color: #aaa;
+            }
+          }
+
+          .crew {
+            height: 100%;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 1rem;
           }
         }
       }
