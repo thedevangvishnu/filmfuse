@@ -1,15 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import dayjs from "dayjs";
-
-import "./DetailsBanner.styles.scss";
-import LazyImage from "../../../components/lazyLoadImage/LazyImage";
+import { FaCirclePlay } from "react-icons/fa6";
 
 import useFetch from "../../../hooks/useFetch";
+
+import LazyImage from "../../../components/lazyLoadImage/LazyImage";
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 import Genres from "../../../components/genres/Genres";
 import CircleRating from "../../../components/circleRating/CircleRating";
+import VideoPopup from "../../../components/videoPopup/VideoPopup";
+
+import "./DetailsBanner.styles.scss";
 
 const DetailsBanner = ({ mediaType, id, crew }) => {
+  const [showVideo, setShowVideo] = useState(false);
+  const [videoKey, setVideoKey] = useState("");
+
+  const { data, isLoading } = useFetch(`/${mediaType}/${id}`);
+  const { data: videos, isLoading: vidoesLoading } = useFetch(
+    `/${mediaType}/${id}/videos`
+  );
+
+  useEffect(() => {
+    const videoKey = videos?.results?.filter(
+      (item) => item?.type === "Trailer"
+    )[0].key;
+
+    setVideoKey(videoKey);
+  }, [videos]);
+
   const directors = crew?.filter(
     (crewMember) =>
       crewMember.job === "Director" ||
@@ -24,8 +43,6 @@ const DetailsBanner = ({ mediaType, id, crew }) => {
   );
 
   const BASE_URL = "https://image.tmdb.org/t/p/original";
-
-  const { data, isLoading } = useFetch(`/${mediaType}/${id}`);
 
   const backdropUrl = `${BASE_URL}${data?.backdrop_path}`;
   const posterUrl = `${BASE_URL}${data?.poster_path}`;
@@ -75,8 +92,14 @@ const DetailsBanner = ({ mediaType, id, crew }) => {
           </div>
 
           {/* rating */}
-          <div className="ratingContainer">
-            <CircleRating rating={data?.vote_average?.toFixed(1)} />
+          <div className="ratingAndTrailer">
+            <div className="ratingContainer">
+              <CircleRating rating={data?.vote_average?.toFixed(1)} />
+            </div>
+            <div className="trailerContainer">
+              <FaCirclePlay className="playIcon" />
+              <span>Watch Trailer</span>
+            </div>
           </div>
 
           {/* overview */}
@@ -147,6 +170,8 @@ const DetailsBanner = ({ mediaType, id, crew }) => {
             </div>
           </div>
         </div>
+
+        {!vidoesLoading && <VideoPopup videoKey={videoKey} />}
       </ContentWrapper>
     </div>
   );

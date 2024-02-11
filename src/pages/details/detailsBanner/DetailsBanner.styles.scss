@@ -154,25 +154,58 @@
         }
       }
 
-      .ratingContainer {
+      .ratingAndTrailer {
         display: flex;
         align-items: center;
+        gap: 3rem;
+        // background: red;
         margin-top: 1rem;
 
-        .circleRatingContainer {
-          width: 60px;
-          background-color: transparent;
+        .ratingContainer {
+          display: flex;
+          align-items: center;
 
-          @include md {
-            width: 80px;
+          .circleRatingContainer {
+            width: 60px;
+            background-color: transparent;
+
+            @include md {
+              width: 80px;
+            }
+
+            .CircularProgressbar-trail {
+              stroke: var(--black);
+            }
+
+            .CircularProgressbar-text {
+              fill: white;
+            }
+          }
+        }
+
+        .trailerContainer {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          cursor: pointer;
+          transition: all 0.4s ease-in-out;
+          &:hover {
+            .playIcon,
+            span {
+              color: white;
+            }
           }
 
-          .CircularProgressbar-trail {
-            stroke: var(--black);
+          .playIcon {
+            font-size: 3.25rem;
+            transition: all 0.4s;
+            color: var(--purple);
           }
 
-          .CircularProgressbar-text {
-            fill: white;
+          span {
+            font-size: 1.25rem;
+            transition: all 0.4s;
+            color: var(--purple);
           }
         }
       }
