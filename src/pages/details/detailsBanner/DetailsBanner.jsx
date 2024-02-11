@@ -22,9 +22,10 @@ const DetailsBanner = ({ mediaType, id, crew }) => {
   );
 
   useEffect(() => {
-    const videoKey = videos?.results?.filter(
-      (item) => item?.type === "Trailer"
-    )[0].key;
+    const videoKey =
+      videos?.results.length > 0
+        ? videos?.results?.filter((item) => item?.type === "Trailer")[0].key
+        : null;
 
     setVideoKey(videoKey);
   }, [videos]);

@@ -12,12 +12,20 @@ const VideoPopup = ({ videoKey, showVideo, setShowVideo }) => {
         <span onClick={() => setShowVideo(false)} className="closeBtn">
           Close
         </span>
-        <ReactPlayer
-          url={`https://www.youtube.com/watch?v=${videoKey}`}
-          width="100%"
-          height="100%"
-          controls
-        />
+        {videoKey && (
+          <ReactPlayer
+            url={`https://www.youtube.com/watch?v=${videoKey}`}
+            width="100%"
+            height="100%"
+            controls
+          />
+        )}
+
+        {!videoKey && (
+          <div className="errorContainer">
+            <p>Not Available</p>
+          </div>
+        )}
       </div>
     </div>
   );
