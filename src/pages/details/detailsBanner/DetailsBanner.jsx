@@ -96,7 +96,10 @@ const DetailsBanner = ({ mediaType, id, crew }) => {
             <div className="ratingContainer">
               <CircleRating rating={data?.vote_average?.toFixed(1)} />
             </div>
-            <div className="trailerContainer">
+            <div
+              className="trailerContainer"
+              onClick={() => setShowVideo(true)}
+            >
               <FaCirclePlay className="playIcon" />
               <span>Watch Trailer</span>
             </div>
@@ -169,9 +172,15 @@ const DetailsBanner = ({ mediaType, id, crew }) => {
               </div>
             </div>
           </div>
-        </div>
 
-        {!vidoesLoading && <VideoPopup videoKey={videoKey} />}
+          {!vidoesLoading && (
+            <VideoPopup
+              videoKey={videoKey}
+              showVideo={showVideo}
+              setShowVideo={setShowVideo}
+            />
+          )}
+        </div>
       </ContentWrapper>
     </div>
   );

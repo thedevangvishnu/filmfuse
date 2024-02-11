@@ -1,0 +1,77 @@
+@import "../../mixins.scss";
+
+.videoPopup {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 5;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  .opacityLayer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+    transition: all 0.5s;
+    opacity: 0;
+    transition: all 0.5s;
+  }
+
+  .videoPlayer {
+    position: relative;
+    width: 800px;
+    aspect-ratio: 16/9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 7;
+    transform: scale(0.2);
+    transition: all 0.3s;
+
+    @include md {
+      padding-inline: 20px;
+    }
+
+    span {
+      position: absolute;
+      top: -40px;
+      right: 20px;
+      align-self: end;
+      padding: 8px;
+      cursor: pointer;
+      color: #ccc;
+      font-weight: 600;
+      transition: all 0.3s;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: initial;
+
+    .opacityLayer {
+      opacity: 1;
+    }
+
+    .videoPlayer {
+      transform: scale(1);
+    }
+  }
+}
