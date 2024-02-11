@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { FaXmark, FaBars, FaX } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
@@ -17,6 +17,11 @@ const Header = () => {
   const [query, setQuery] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   useEffect(() => {
     window.addEventListener("scroll", monitorHeaderBgState);

@@ -9,11 +9,6 @@ const Details = () => {
 
   const { data, isLoading } = useFetch(`/${mediaType}/${id}/credits`);
 
-  useEffect(() => {
-    console.log(mediaType);
-    console.log(id);
-  }, []);
-
   return (
     <div>
       <DetailsBanner mediaType={mediaType} id={id} crew={data?.crew} />
