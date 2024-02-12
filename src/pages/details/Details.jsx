@@ -5,17 +5,33 @@ import useFetch from "../../hooks/useFetch";
 
 import DetailsBanner from "./detailsBanner/DetailsBanner";
 import Cast from "./cast/Cast";
+import OfficialVideos from "./videos/OfficialVideos";
+
+import "./Details.styles.scss";
 
 const Details = () => {
   const { mediaType, id } = useParams();
 
-  const { data, isLoading } = useFetch(`/${mediaType}/${id}/credits`);
+  const { data: mediaData, isLoading: mediaDataLoading } = useFetch(
+    `/${mediaType}/${id}`
+  );
+  const { data: creditsData, isLoading: creditsDataLoading } = useFetch(
+    `/${mediaType}/${id}/credits`
+  );
+  const { data: videos, isLoading: videosLoading } = useFetch(
+    `/${mediaType}/${id}/videos`
+  );
 
   return (
-    <div>
-      <DetailsBanner mediaType={mediaType} id={id} crew={data?.crew} />
-      <Cast cast={data?.cast} castLoading={isLoading} />
-      {/* <OfficialVideos /> */}
+    <div className="detailsContainer">
+      <DetailsBanner
+        data={mediaData}
+        crew={creditsData?.crew}
+        videos={videos}
+        videosLoading={videosLoading}
+      />
+      <Cast cast={creditsData?.cast} castLoading={creditsDataLoading} />
+      <OfficialVideos videos={videos} videosLoading={videosLoading} />
       {/* <Related /> */}
       {/* <Recommended /> */}
     </div>

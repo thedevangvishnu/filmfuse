@@ -12,14 +12,9 @@ import VideoPopup from "../../../components/videoPopup/VideoPopup";
 
 import "./DetailsBanner.styles.scss";
 
-const DetailsBanner = ({ mediaType, id, crew }) => {
+const DetailsBanner = ({ data, crew, videos, videosLoading }) => {
   const [showVideo, setShowVideo] = useState(false);
   const [videoKey, setVideoKey] = useState("");
-
-  const { data, isLoading } = useFetch(`/${mediaType}/${id}`);
-  const { data: videos, isLoading: vidoesLoading } = useFetch(
-    `/${mediaType}/${id}/videos`
-  );
 
   useEffect(() => {
     const videoKey =
@@ -174,7 +169,7 @@ const DetailsBanner = ({ mediaType, id, crew }) => {
             </div>
           </div>
 
-          {!vidoesLoading && (
+          {!videosLoading && (
             <VideoPopup
               videoKey={videoKey}
               showVideo={showVideo}

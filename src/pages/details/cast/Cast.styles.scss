@@ -3,20 +3,15 @@
 .castContainer {
   width: 100%;
   position: relative;
-  padding-top: 50px;
+  margin-top: 50px;
 
   .contentWrapper {
-    padding: 0 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
 
-    @include md {
-      padding-inline: 4rem;
-    }
-
     .castTitle {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       font-weight: 600;
 
       @include lg {
