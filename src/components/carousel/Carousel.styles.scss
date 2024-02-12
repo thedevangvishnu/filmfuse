@@ -16,14 +16,12 @@
   }
 
   .leftArrowContainer {
-    left: 20px;
     @include md {
       left: 40px;
     }
   }
 
   .rightArrowContainer {
-    right: 10px;
     @include md {
       right: 30px;
     }

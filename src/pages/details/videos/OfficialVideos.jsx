@@ -15,7 +15,7 @@ const OfficialVideos = ({ videos, videosLoading }) => {
   };
 
   return (
-    <div className="videosContainer">
+    <div className="videosContainer section">
       <ContentWrapper>
         <p className="sectionTitle">Official Videos</p>
         {!videosLoading && (

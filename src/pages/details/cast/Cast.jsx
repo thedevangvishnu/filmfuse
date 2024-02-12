@@ -11,9 +11,9 @@ const Cast = ({ cast, castLoading }) => {
   const BASE_URL = "https://image.tmdb.org/t/p/original";
 
   return (
-    <div className="castContainer">
+    <div className="castContainer section">
       <ContentWrapper>
-        <p className="castTitle">Top Cast</p>
+        <p className="sectionTitle">Top Cast</p>
         {!castLoading && (
           <div className="castItems">
             {castListSorted.map((member) => {

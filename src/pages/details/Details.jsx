@@ -6,6 +6,8 @@ import useFetch from "../../hooks/useFetch";
 import DetailsBanner from "./detailsBanner/DetailsBanner";
 import Cast from "./cast/Cast";
 import OfficialVideos from "./videos/OfficialVideos";
+import Similar from "./similar/Similar";
+import Recommended from "./recommended/Recommended";
 
 import "./Details.styles.scss";
 
@@ -32,7 +34,7 @@ const Details = () => {
       />
       <Cast cast={creditsData?.cast} castLoading={creditsDataLoading} />
       <OfficialVideos videos={videos} videosLoading={videosLoading} />
-      {/* <Related /> */}
+      <Similar mediaType={mediaType} id={id} />
       {/* <Recommended /> */}
     </div>
   );

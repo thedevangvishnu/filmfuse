@@ -1,19 +1,44 @@
 @import "../../mixins.scss";
 
 .detailsContainer {
-  .contentWrapper {
-    padding-inline: 2rem;
+  @include lg {
+    padding-inline: 3rem;
+  }
 
-    @include md {
-      padding-inline: 4rem;
-    }
+  .section {
+    width: 100%;
+    position: relative;
+    margin-top: 50px;
 
-    .sectionTitle {
-      font-size: 1.35rem;
-      font-weight: 600;
+    .contentWrapper {
+      padding-inline: 2rem;
 
-      @include lg {
-        font-size: 1.5rem;
+      @include md {
+        padding-inline: 4rem;
+      }
+
+      .sectionTitle {
+        font-size: 1.35rem;
+        font-weight: 600;
+
+        @include lg {
+          font-size: 1.5rem;
+        }
+      }
+
+      .carouselContainer {
+        .leftArrowContainer {
+          left: -15px;
+        }
+
+        .rightArrowContainer {
+          right: -15px;
+        }
+
+        .contentWrapper {
+          width: 100%;
+          padding-inline: 0;
+        }
       }
     }
   }
