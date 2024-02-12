@@ -12,7 +12,11 @@ const Similar = ({ mediaType, id }) => {
     <div className="similarContainer section">
       <ContentWrapper>
         <p className="sectionTitle">{`Similar ${title}`}</p>
-        <Carousel content={data?.results} isLoading={isLoading} />
+        <Carousel
+          content={data?.results}
+          isLoading={isLoading}
+          endPoint={mediaType}
+        />
       </ContentWrapper>
     </div>
   );
