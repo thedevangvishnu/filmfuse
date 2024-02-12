@@ -6,6 +6,7 @@ import Home from "./pages/home/Home";
 import SearchResult from "./pages/searchResult/SearchResult";
 import Explore from "./pages/explore/Explore";
 import Details from "./pages/details/Details";
+import Footer from "./components/footer/Footer";
 
 import { AppContext } from "./context/AppContext";
 
@@ -19,7 +20,7 @@ function App() {
         <Route path="/explore/:mediaType" element={<Explore />} />
         <Route path="/:mediaType/:id" element={<Details />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 }
