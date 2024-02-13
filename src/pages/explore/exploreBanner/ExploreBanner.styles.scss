@@ -12,6 +12,42 @@
     height: 700px;
   }
 
+  .leftArrowContainer,
+  .rightArrowContainer {
+    display: none;
+    @include md {
+      display: block;
+      position: absolute;
+      top: 50%;
+      z-index: 4;
+    }
+  }
+
+  .leftArrowContainer {
+    @include md {
+      left: 40px;
+    }
+  }
+
+  .arrow {
+    font-size: 1.75rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s;
+    &:hover {
+      color: white;
+    }
+    @include md {
+      font-size: 2rem;
+    }
+  }
+
+  .rightArrowContainer {
+    @include md {
+      right: 30px;
+    }
+  }
+
   .bannerContainer {
     position: absolute;
     left: 0;
@@ -21,6 +57,7 @@
     opacity: 0.8;
     overflow-y: hidden;
     display: flex;
+    align-items: center;
 
     .lazy-load-image-background {
       min-width: 100%;
@@ -43,17 +80,16 @@
     align-items: center;
     gap: 0.35rem;
 
+    @include md {
+      bottom: 80px;
+    }
+
     .dot {
       cursor: pointer;
       transition: all 0.3s;
       color: rgba(255, 255, 255, 0.5);
-      //   border: 1px solid white;
       border-radius: 50%;
       font-size: 0.75rem;
-
-      &:hover {
-        color: white;
-      }
     }
   }
 

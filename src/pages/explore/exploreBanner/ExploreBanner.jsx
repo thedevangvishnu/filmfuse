@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { GoDotFill } from "react-icons/go";
+import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 
 import useFetch from "../../../hooks/useFetch";
 
@@ -9,6 +10,7 @@ import LazyImage from "../../../components/lazyLoadImage/LazyImage";
 const ExploreBanner = ({ mediaType }) => {
   const [mediaIndex, setMediaIndex] = useState(0);
   const [mediaList, setMediaList] = useState([]);
+  const bannerContainer = useRef();
 
   const { data, isLoading } = useFetch(`/${mediaType}/popular`);
 
@@ -21,14 +23,45 @@ const ExploreBanner = ({ mediaType }) => {
 
   const BASE_URL = "https://image.tmdb.org/t/p/original";
 
+  const scrollContainer = (direction) => {
+    const container = bannerContainer.current;
+    const scrollWidth =
+      direction === "left"
+        ? container.scrollLeft - container.offsetWidth
+        : container.scrollLeft + container.offsetWidth;
+
+    container.scrollTo({
+      left: scrollWidth,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="exploreBannerContainer">
+      <div
+        className="leftArrowContainer"
+        onClick={() => scrollContainer("left")}
+      >
+        <FaCircleChevronLeft className="arrow" />
+      </div>
+
+      <div
+        className="rightArrowContainer"
+        onClick={() => scrollContainer("right")}
+      >
+        <FaCircleChevronRight className="arrow" />
+      </div>
+
       {!isLoading && (
         <>
-          <div className="bannerContainer">
-            {mediaList?.map((media) => (
-              <LazyImage src={`${BASE_URL}${media?.backdrop_path}`} />
-            ))}
+          <div className="bannerContainer" ref={bannerContainer}>
+            {mediaList?.map((media) => {
+              return (
+                <>
+                  <LazyImage src={`${BASE_URL}${media?.backdrop_path}`} />
+                </>
+              );
+            })}
           </div>
 
           <div className="dotsContainer">
