@@ -15,7 +15,7 @@ const HeroBanner = () => {
   const [query, setQuery] = useState("");
   const [queryError, setQueryError] = useState(null);
   const navigate = useNavigate();
-  const { isLoading, data } = useFetch("/movie/upcoming");
+  const { data, isLoading } = useFetch("/movie/upcoming");
 
   const BASE_URL = "https://image.tmdb.org/t/p/original";
 

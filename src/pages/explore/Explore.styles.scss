@@ -1,4 +1,17 @@
+@import "../../mixins.scss";
+
 .exploreContainer {
   width: 100%;
   position: relative;
+
+  .contentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .exploreBody {
+      width: 100%;
+      height: 100%;
+    }
+  }
 }
