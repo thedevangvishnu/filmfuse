@@ -18,8 +18,10 @@ const DetailsBanner = ({ data, crew, videos, videosLoading }) => {
 
   useEffect(() => {
     const videoKey =
-      videos?.results.length > 0
-        ? videos?.results?.filter((item) => item?.type === "Trailer")[0].key
+      videos?.results?.length > 0
+        ? videos?.results?.filter(
+            (item) => item?.type === "Trailer" || item?.type === "Teaser"
+          )[0].key
         : null;
 
     setVideoKey(videoKey);
