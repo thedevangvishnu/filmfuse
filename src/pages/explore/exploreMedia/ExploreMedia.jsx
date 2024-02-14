@@ -3,6 +3,7 @@ import React from "react";
 import useFetch from "../../../hooks/useFetch";
 
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
+import MediaCards from "../../../components/mediaCard/MediaCards";
 import Carousel from "../../../components/carousel/Carousel";
 
 const ExploreMedia = ({ mediaType }) => {
@@ -24,10 +25,16 @@ const ExploreMedia = ({ mediaType }) => {
 
         <div className="mediaBody">
           {!isLoading && (
-            <Carousel
+            // <Carousel
+            //   content={data?.results}
+            //   isLoading={isLoading}
+            //   endPoint={mediaType}
+            // />
+
+            <MediaCards
               content={data?.results}
               isLoading={isLoading}
-              endPoint={mediaType}
+              endpoint={mediaType}
             />
           )}
         </div>

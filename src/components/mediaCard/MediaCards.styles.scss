@@ -1,0 +1,175 @@
+@import "../../mixins.scss";
+
+.mediaCardContainer {
+  position: relative;
+
+  .contentWrapper {
+    position: relative;
+    width: 100%;
+    padding-inline: 0;
+
+    .mediaCardItems {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-flow: wrap;
+      padding-top: 10px;
+      padding-inline: 5px;
+      row-gap: 2rem;
+
+      .mediaCardItem {
+        width: calc(45% - 5px);
+        cursor: pointer;
+        margin-right: 15px;
+
+        @include md {
+          width: calc(28%);
+          margin-right: 15px;
+        }
+
+        @include lg {
+          width: calc(21%);
+          margin-right: 20px;
+        }
+
+        @include xl {
+          width: calc(18%);
+          margin-right: 20px;
+        }
+
+        .posterContainer {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          display: flex;
+          aspect-ratio: 1 / 1.5;
+          background-size: cover;
+          background-position: center;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          border-radius: 20px;
+          transition: all 0.3s;
+
+          &:hover {
+            transform: scale(1.03);
+          }
+
+          .lazy-load-image-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              object-position: center;
+              border-radius: 20px;
+            }
+          }
+
+          .genres {
+            display: none;
+
+            @include md {
+              position: absolute;
+              z-index: 3;
+              display: flex;
+              flex-wrap: wrap;
+              align-items: flex-end;
+              justify-content: flex-end;
+              width: 110px;
+              bottom: 10px;
+              right: 10px;
+              gap: 8px;
+
+              @include xl {
+                width: 130px;
+                bottom: 10px;
+                right: 10px;
+                gap: 8px;
+              }
+
+              .genreItem {
+                background: var(--orangeDark);
+                font-weight: 500;
+                box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+                font-size: 0.65rem;
+                border-radius: 10px;
+                padding: 3px 6px;
+
+                @include lg {
+                  font-weight: 700;
+                }
+
+                @include xl {
+                  font-size: 0.75rem;
+
+                  border-radius: 10px;
+                  padding: 3px 8px;
+                }
+              }
+            }
+          }
+        }
+
+        .ratingContainer {
+          width: 45px;
+          height: 45px;
+          position: absolute;
+          margin-top: -35px;
+          margin-left: 10px;
+          display: flex;
+          align-items: center;
+
+          @include md {
+            width: 55px;
+            height: 55px;
+            margin-left: 10px;
+          }
+        }
+
+        .textContainer {
+          display: flex;
+          flex-direction: column;
+          margin-top: 8px;
+
+          @include md {
+            margin-top: 15px;
+          }
+
+          .title {
+            width: 100%;
+            margin-block: 10px 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: all 0.3s;
+
+            @include md {
+              margin-block: 20px 8px;
+              font-size: 1.25rem;
+              line-height: 1.3;
+            }
+          }
+
+          .date {
+            font-size: 0.85rem;
+            color: #aaa;
+
+            @include md {
+              font-size: 0.95rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
