@@ -6,6 +6,8 @@ import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 import MediaCards from "../../../components/mediaCard/MediaCards";
 import Carousel from "../../../components/carousel/Carousel";
 
+import "./ExploreMedia.styles.scss";
+
 const ExploreMedia = ({ mediaType }) => {
   const { data, isLoading } = useFetch(`/discover/${mediaType}?page=1`);
   const mediaTitle = mediaType === "movie" ? "Movies" : "TV Shows";
