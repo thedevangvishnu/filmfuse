@@ -21,6 +21,8 @@ const ExploreBanner = ({ mediaType }) => {
     setMediaList(sortedData?.splice(0, 5));
   }, [data]);
 
+  useEffect(() => {});
+
   const BASE_URL = "https://image.tmdb.org/t/p/original";
 
   const scrollContainer = (direction) => {
