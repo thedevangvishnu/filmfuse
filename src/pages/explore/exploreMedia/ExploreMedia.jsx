@@ -1,15 +1,57 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-import useFetch from "../../../hooks/useFetch";
+import fetchDataFromApi from "../../../utils/api";
 
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 import MediaCards from "../../../components/mediaCard/MediaCards";
-import Carousel from "../../../components/carousel/Carousel";
 
 import "./ExploreMedia.styles.scss";
+import { preprocess } from "zod";
 
 const ExploreMedia = ({ mediaType }) => {
-  const { data, isLoading } = useFetch(`/discover/${mediaType}?page=1`);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [media, setMedia] = useState([]);
+  const [isMediaLoading, setIsMediaLoading] = useState(null);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  const infiniteScrollContainer = useRef();
+
+  useEffect(() => {
+    fetchInitialData();
+  }, [mediaType]);
+
+  const fetchInitialData = async () => {
+    setIsMediaLoading(true);
+
+    const data = await fetchDataFromApi(
+      `/discover/${mediaType}?page=${pageNumber}`
+    );
+
+    if (data) {
+      setIsMediaLoading(false);
+      setMedia(data?.results);
+      setPageNumber((prevPage) => prevPage + 1);
+    }
+  };
+
+  useEffect(() => {
+    if (true) {
+      fetchDataForNextPage();
+    }
+  }, [pageNumber]);
+
+  const fetchDataForNextPage = async () => {
+    const data = await fetchDataFromApi(
+      `/discover/${mediaType}?page=${nextPage}`
+    );
+
+    if (data) {
+      setMedia((prevMedia) => [...prevMedia, ...data?.results]);
+      // Update page number after fetching data
+    }
+    setPageNumber((prevPage) => prevPage + 1);
+  };
+
   const mediaTitle = mediaType === "movie" ? "Movies" : "TV Shows";
 
   return (
@@ -26,19 +68,18 @@ const ExploreMedia = ({ mediaType }) => {
         </div>
 
         <div className="mediaBody">
-          {!isLoading && (
-            // <Carousel
-            //   content={data?.results}
-            //   isLoading={isLoading}
-            //   endPoint={mediaType}
-            // />
-
-            <MediaCards
-              content={data?.results}
-              isLoading={isLoading}
-              endpoint={mediaType}
-            />
-          )}
+          <div
+            className="infiniteScrollContainer"
+            ref={infiniteScrollContainer}
+          >
+            {!isMediaLoading && (
+              <MediaCards
+                content={media}
+                isLoading={isMediaLoading}
+                endpoint={mediaType}
+              />
+            )}
+          </div>
         </div>
       </ContentWrapper>
     </div>
