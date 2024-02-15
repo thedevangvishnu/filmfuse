@@ -12,15 +12,20 @@ const ExploreMedia = ({ mediaType }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [media, setMedia] = useState([]);
   const [isMediaLoading, setIsMediaLoading] = useState(null);
-  const [lastScrollY, setLastScrollY] = useState(0);
 
   const infiniteScrollContainer = useRef();
 
   useEffect(() => {
-    fetchInitialData();
-  }, [mediaType]);
+    fetchMedia();
+  }, [mediaType, pageNumber]);
 
-  const fetchInitialData = async () => {
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const fetchMedia = async () => {
     setIsMediaLoading(true);
 
     const data = await fetchDataFromApi(
@@ -29,27 +34,20 @@ const ExploreMedia = ({ mediaType }) => {
 
     if (data) {
       setIsMediaLoading(false);
-      setMedia(data?.results);
-      setPageNumber((prevPage) => prevPage + 1);
+      pageNumber === 1
+        ? setMedia(data?.results)
+        : setMedia((prevMedia) => [...prevMedia, ...data?.results]);
+      // setPageNumber((prevPage) => prevPage + 1);
     }
   };
 
-  useEffect(() => {
-    if (true) {
-      fetchDataForNextPage();
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 1 >=
+      document.documentElement.scrollHeight
+    ) {
+      setPageNumber((prevPage) => prevPage + 1);
     }
-  }, [pageNumber]);
-
-  const fetchDataForNextPage = async () => {
-    const data = await fetchDataFromApi(
-      `/discover/${mediaType}?page=${nextPage}`
-    );
-
-    if (data) {
-      setMedia((prevMedia) => [...prevMedia, ...data?.results]);
-      // Update page number after fetching data
-    }
-    setPageNumber((prevPage) => prevPage + 1);
   };
 
   const mediaTitle = mediaType === "movie" ? "Movies" : "TV Shows";
