@@ -3,27 +3,19 @@ import React, { useState, useEffect, useRef } from "react";
 import fetchDataFromApi from "../../../utils/api";
 
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
-import MediaCards from "../../../components/mediaCard/MediaCards";
+import MediaCard from "../../../components/mediaCard/MediaCard";
 
 import "./ExploreMedia.styles.scss";
-import { preprocess } from "zod";
 
 const ExploreMedia = ({ mediaType }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [media, setMedia] = useState([]);
   const [isMediaLoading, setIsMediaLoading] = useState(null);
 
-  const infiniteScrollContainer = useRef();
-
   useEffect(() => {
     fetchMedia();
-  }, [mediaType, pageNumber]);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    console.log(media);
+  }, [mediaType]);
 
   const fetchMedia = async () => {
     setIsMediaLoading(true);
@@ -34,19 +26,10 @@ const ExploreMedia = ({ mediaType }) => {
 
     if (data) {
       setIsMediaLoading(false);
-      pageNumber === 1
-        ? setMedia(data?.results)
-        : setMedia((prevMedia) => [...prevMedia, ...data?.results]);
-      // setPageNumber((prevPage) => prevPage + 1);
-    }
-  };
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop + 1 >=
-      document.documentElement.scrollHeight
-    ) {
-      setPageNumber((prevPage) => prevPage + 1);
+      setMedia(data?.results);
+      // pageNumber === 1
+      //   ? setMedia(data?.results)
+      //   : setMedia((prevMedia) => [...prevMedia, ...data?.results]);
     }
   };
 
@@ -59,23 +42,16 @@ const ExploreMedia = ({ mediaType }) => {
           <div className="mediaTitle">
             <h2>Explore {mediaTitle}</h2>
           </div>
-
-          <div className="filterSortContainer">
-            <div className="filterContainer filterSort"></div>
-          </div>
         </div>
 
         <div className="mediaBody">
-          <div
-            className="infiniteScrollContainer"
-            ref={infiniteScrollContainer}
-          >
+          <div className="mediaCards">
             {!isMediaLoading && (
-              <MediaCards
-                content={media}
-                isLoading={isMediaLoading}
-                endpoint={mediaType}
-              />
+              <>
+                {media?.map((item) => {
+                  return <MediaCard key={item?.id} item={item} />;
+                })}
+              </>
             )}
           </div>
         </div>
