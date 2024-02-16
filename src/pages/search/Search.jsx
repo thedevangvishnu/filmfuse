@@ -12,6 +12,7 @@ import { AppContext } from "../../context/AppContext";
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 
 import "./Search.styles.scss";
+import GenresTab from "../../components/genreTab/GenresTab";
 
 const Search = () => {
   const searchGenres = [
@@ -40,7 +41,11 @@ const Search = () => {
         </div>
 
         {/* genres tabs */}
-        <div className="genresTabsContainer"></div>
+        <div className="genresTabsContainer">
+          {searchGenres.map((item) => (
+            <GenresTab genre={item} />
+          ))}
+        </div>
 
         {/* search result */}
       </ContentWrapper>

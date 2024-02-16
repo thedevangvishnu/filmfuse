@@ -47,5 +47,32 @@
         }
       }
     }
+
+    .genresTabsContainer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+
+      .genresTab {
+        padding: 0.5rem 0.75rem;
+        background-color: var(--black);
+        background-color: rgba(0, 0, 0, 0.4);
+        font-size: 0.8rem;
+        border-radius: 5px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: all 0.3s;
+
+        &:hover {
+          color: var(--orange);
+          border: 1px solid var(--orange);
+        }
+
+        .active {
+          background-color: var(--blackTwo);
+        }
+      }
+    }
   }
 }
