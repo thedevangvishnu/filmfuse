@@ -8,7 +8,7 @@ import CircleRating from "../circleRating/CircleRating";
 
 import "./MediaCard.styles.scss";
 
-const MediaCard = ({ item }) => {
+const MediaCard = ({ item, mediaType }) => {
   const navigate = useNavigate();
   const [fullPosterUrl, setFullPosterUrl] = useState("");
 
@@ -22,7 +22,7 @@ const MediaCard = ({ item }) => {
   return (
     <div
       className="mediaCardContainer"
-      onClick={() => navigate(`/${item?.media_type || endPoint}/${item?.id}`)}
+      onClick={() => navigate(`/${item?.media_type || mediaType}/${item?.id}`)}
     >
       <div className="posterContainer">
         <LazyImage src={fullPosterUrl} className="posterImg" />

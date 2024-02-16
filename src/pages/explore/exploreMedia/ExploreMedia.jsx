@@ -11,27 +11,32 @@ const ExploreMedia = ({ mediaType }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [media, setMedia] = useState([]);
   const [isMediaLoading, setIsMediaLoading] = useState(null);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchMedia();
-    console.log(media);
-  }, [mediaType]);
-
-  const fetchMedia = async () => {
+  const fetchInitialData = async () => {
     setIsMediaLoading(true);
+    setError(null);
 
-    const data = await fetchDataFromApi(
-      `/discover/${mediaType}?page=${pageNumber}`
-    );
+    try {
+      const data = await fetchDataFromApi(
+        `/discover/${mediaType}?page=${pageNumber}`
+      );
 
-    if (data) {
+      if (data) {
+        setIsMediaLoading(false);
+        setMedia(data?.results);
+        setError(null);
+      }
+    } catch (error) {
       setIsMediaLoading(false);
-      setMedia(data?.results);
-      // pageNumber === 1
-      //   ? setMedia(data?.results)
-      //   : setMedia((prevMedia) => [...prevMedia, ...data?.results]);
+      setMedia([]);
+      setError("Error fetching data");
     }
   };
+
+  useEffect(() => {
+    fetchInitialData();
+  }, [mediaType]);
 
   const mediaTitle = mediaType === "movie" ? "Movies" : "TV Shows";
 
@@ -46,13 +51,12 @@ const ExploreMedia = ({ mediaType }) => {
 
         <div className="mediaBody">
           <div className="mediaCards">
-            {!isMediaLoading && (
-              <>
-                {media?.map((item) => {
-                  return <MediaCard key={item?.id} item={item} />;
-                })}
-              </>
-            )}
+            {media?.map((item) => {
+              return (
+                <MediaCard key={item?.id} item={item} mediaType={mediaType} />
+              );
+            })}
+            {isMediaLoading && <p>Loading... </p>}
           </div>
         </div>
       </ContentWrapper>
