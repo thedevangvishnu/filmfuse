@@ -1,40 +1,62 @@
 import React, { useState, useEffect, useRef } from "react";
-
-import fetchDataFromApi from "../../../utils/api";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 import MediaCard from "../../../components/mediaCard/MediaCard";
 
+import fetchDataFromApi from "../../../utils/api";
+
 import "./ExploreMedia.styles.scss";
 
 const ExploreMedia = ({ mediaType }) => {
-  const [pageNumber, setPageNumber] = useState(1);
-  const [media, setMedia] = useState([]);
-  const [isMediaLoading, setIsMediaLoading] = useState(null);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchInitialData = async () => {
-    setIsMediaLoading(true);
+    setIsLoading(true);
     setError(null);
 
     try {
-      const data = await fetchDataFromApi(
-        `/discover/${mediaType}?page=${pageNumber}`
-      );
+      const data = await fetchDataFromApi(`/discover/${mediaType}`);
 
       if (data) {
-        setIsMediaLoading(false);
-        setMedia(data?.results);
+        setIsLoading(false);
+        setData(data);
         setError(null);
       }
+
+      setPageNumber((prevPage) => prevPage + 1);
     } catch (error) {
-      setIsMediaLoading(false);
-      setMedia([]);
+      setIsLoading(false);
+      setData(null);
       setError("Error fetching data");
     }
   };
 
+  const fetchDataForNextPage = async () => {
+    setError(null);
+    try {
+      const response = await fetchDataFromApi(
+        `/discover/${mediaType}?page=${pageNumber}`
+      );
+
+      if (data?.results) {
+        setData({ ...data, results: [...data?.results, ...response?.results] });
+      } else {
+        setData(response);
+      }
+
+      setPageNumber((prevPage) => prevPage + 1);
+    } catch (error) {
+      setError("Error fetching data for next page");
+    }
+  };
+
   useEffect(() => {
+    setData(null);
+    setPageNumber(1);
     fetchInitialData();
   }, [mediaType]);
 
@@ -50,14 +72,32 @@ const ExploreMedia = ({ mediaType }) => {
         </div>
 
         <div className="mediaBody">
-          <div className="mediaCards">
-            {media?.map((item) => {
-              return (
-                <MediaCard key={item?.id} item={item} mediaType={mediaType} />
-              );
-            })}
-            {isMediaLoading && <p>Loading... </p>}
-          </div>
+          {isLoading && <p>Loading...</p>}
+          {!isLoading && (
+            <>
+              {data?.results?.length > 0 ? (
+                <InfiniteScroll
+                  className="mediaCards"
+                  dataLength={data?.results?.length}
+                  hasMore={pageNumber <= data?.total_pages}
+                  loader={<p>Loading...</p>}
+                  next={fetchDataForNextPage}
+                >
+                  {data?.results?.map((item) => {
+                    return (
+                      <MediaCard
+                        key={item?.id}
+                        item={item}
+                        mediaType={mediaType}
+                      />
+                    );
+                  })}
+                </InfiniteScroll>
+              ) : (
+                <p>Sorry, no results found</p>
+              )}
+            </>
+          )}
         </div>
       </ContentWrapper>
     </div>
