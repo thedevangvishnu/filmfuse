@@ -6,6 +6,7 @@ import { FaSearch } from "react-icons/fa";
 
 import ContentWrapper from "../contentWrapper/ContentWrapper";
 import Logo from "../../assets/images/logo.png";
+import Search from "../../pages/search/Search";
 
 import "./Header.styles.scss";
 
@@ -110,23 +111,24 @@ const Header = () => {
       </ContentWrapper>
 
       {showSearch && (
-        <div className="searchContainer">
-          <input
-            type="text"
-            placeholder="Search movies or TV shows..."
-            className="searchInput"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            onKeyUp={onKeyUpHandler}
-          />
-          <span>
-            <FaXmark
-              className="closeIcon icon"
-              onClick={() => setShowSearch(false)}
-              title="Close searchbar"
-            />
-          </span>
-        </div>
+        <Search />
+        // <div className="searchContainer">
+        //   <input
+        //     type="text"
+        //     placeholder="Search movies or TV shows..."
+        //     className="searchInput"
+        //     value={query}
+        //     onChange={(event) => setQuery(event.target.value)}
+        //     onKeyUp={onKeyUpHandler}
+        //   />
+        //   <span>
+        //     <FaXmark
+        //       className="closeIcon icon"
+        //       onClick={() => setShowSearch(false)}
+        //       title="Close searchbar"
+        //     />
+        //   </span>
+        // </div>
       )}
     </header>
   );
