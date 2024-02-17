@@ -54,6 +54,9 @@ const Header = () => {
   const openSearchMenu = () => {
     setShowMobileMenu(false);
     setShowSearch(true);
+
+    const sourceRoute = location.pathname;
+    navigate("/searchPage", { state: { source: sourceRoute } });
   };
 
   const onKeyUpHandler = (event) => {
@@ -109,27 +112,6 @@ const Header = () => {
           )}
         </div>
       </ContentWrapper>
-
-      {showSearch && (
-        <Search />
-        // <div className="searchContainer">
-        //   <input
-        //     type="text"
-        //     placeholder="Search movies or TV shows..."
-        //     className="searchInput"
-        //     value={query}
-        //     onChange={(event) => setQuery(event.target.value)}
-        //     onKeyUp={onKeyUpHandler}
-        //   />
-        //   <span>
-        //     <FaXmark
-        //       className="closeIcon icon"
-        //       onClick={() => setShowSearch(false)}
-        //       title="Close searchbar"
-        //     />
-        //   </span>
-        // </div>
-      )}
     </header>
   );
 };

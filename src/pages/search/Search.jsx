@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   FaXmark,
   FaBars,
@@ -7,12 +8,12 @@ import {
   FaArrowLeft,
 } from "react-icons/fa6";
 
-import { AppContext } from "../../context/AppContext";
+import useFetch from "../../hooks/useFetch";
 
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
+import GenresTab from "../../components/genreTab/GenresTab";
 
 import "./Search.styles.scss";
-import GenresTab from "../../components/genreTab/GenresTab";
 
 const Search = () => {
   const searchGenres = [
@@ -25,10 +26,21 @@ const Search = () => {
     "Horror",
   ];
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleGoBack = () => {
+    if (location.state && location.state.source) {
+      navigate(location.state.source);
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <div className="searchPage">
       <ContentWrapper>
-        <div className="closeIconContainer">
+        <div className="closeIconContainer" onClick={handleGoBack}>
           <FaArrowLeft className="arrowIcon icon" />
         </div>
 

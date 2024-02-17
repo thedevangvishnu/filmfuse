@@ -1,13 +1,20 @@
 .searchPage {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
   background-color: var(--blackThree);
   padding-block: 2rem;
+  z-index: 10;
 
   .contentWrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     gap: 1rem;
 
     .icon {
