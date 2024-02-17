@@ -22,8 +22,17 @@ const useFetchAndCombine = (genreId) => {
 
       const response = await Promise.all(promises);
 
-      response.forEach(({ results }) => {
-        const sortedResults = results.sort(
+      response.forEach(({ results }, resultsIndex) => {
+        let modifiedResults;
+        endpoints.forEach((endpoint, endpointIndex) => {
+          if (resultsIndex === endpointIndex) {
+            modifiedResults = results.map((item) => {
+              return { ...item, endpoint: endpoint };
+            });
+          }
+        });
+
+        const sortedResults = modifiedResults.sort(
           (a, b) => a.popularity > b.popularity
         );
         sortedResults.forEach((item) => media.push(item));

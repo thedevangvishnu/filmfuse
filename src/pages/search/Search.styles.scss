@@ -2,13 +2,13 @@
 
 .searchPage {
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   position: relative;
   // top: 0;
   // left: 0;
   background-color: var(--blackThree);
   // background-color: white;
-  padding-block: 2rem;
+  padding-block: 2rem 1rem;
   z-index: 4;
   .contentWrapper {
     position: relative;
@@ -87,24 +87,18 @@
 
     .genreWiseResults {
       width: 100%;
-      height: 100%;
+      height: 700px;
       display: flex;
       flex-wrap: wrap;
       align-items: flex-start;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.65rem;
+      overflow-y: scroll;
+      padding: 10px;
 
-      .mediaCardContainer {
-        .ratingContainer,
-        .textContainer {
-          display: none;
-        }
-
-        .posterContainer {
-          .genres {
-            display: none;
-          }
-        }
+      @include md {
+        display: grid;
+        gap: 0.75rem;
       }
     }
   }
