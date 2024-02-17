@@ -97,7 +97,7 @@ const Search = () => {
         {!isLoading && (
           <div className="genreWiseResults">
             {data?.results?.map((item, index) => (
-              <GenreWiseMediaCard item={item} />
+              <GenreWiseMediaCard item={item} gridItem={index + 1} />
             ))}
           </div>
         )}

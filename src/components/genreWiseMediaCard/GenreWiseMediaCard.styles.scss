@@ -1,20 +1,22 @@
 @import "../../mixins.scss";
 
 .genreWiseMediaCard {
-  width: calc(48%);
+  //   width: calc(48%);
   cursor: pointer;
 
-  @include md {
-    width: calc(28%);
-  }
+  //   width: 00px;
 
-  @include lg {
-    width: calc(21%);
-  }
+  //   @include md {
+  //     width: calc(28%);
+  //   }
 
-  @include xl {
-    width: calc(18%);
-  }
+  //   @include lg {
+  //     width: calc(21%);
+  //   }
+
+  //   @include xl {
+  //     width: calc(18%);
+  //   }
 
   .posterContainer {
     width: 100%;
@@ -27,11 +29,11 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: 10px;
     transition: all 0.3s;
 
     &:hover {
-      transform: scale(1.03);
+      transform: scale(0.95);
     }
 
     .lazy-load-image-background {

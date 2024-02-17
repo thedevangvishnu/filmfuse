@@ -23,6 +23,7 @@ const useFetchAndCombine = (genreId) => {
       const response = await Promise.all(promises);
 
       response.forEach(({ results }, resultsIndex) => {
+        // each element is the results array doesn't have an endpoint property that can tell which mediaType it is. Add the endpoint to each item in the results array
         let modifiedResults;
         endpoints.forEach((endpoint, endpointIndex) => {
           if (resultsIndex === endpointIndex) {
@@ -32,11 +33,13 @@ const useFetchAndCombine = (genreId) => {
           }
         });
 
-        const sortedResults = modifiedResults.sort(
-          (a, b) => a.popularity > b.popularity
-        );
+        // sort the modifiedResults on the basis on popularity and extract first ten
+        const sortedResults = modifiedResults
+          .sort((a, b) => a.popularity > b.popularity)
+          .splice(0, 10);
         sortedResults.forEach((item) => media.push(item));
       });
+
       setIsLoading(false);
       setData({ results: media });
     } catch (error) {

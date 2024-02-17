@@ -2,14 +2,13 @@
 
 .searchPage {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
+  max-height: 100%;
   position: relative;
-  // top: 0;
-  // left: 0;
   background-color: var(--blackThree);
-  // background-color: white;
   padding-block: 2rem 1rem;
   z-index: 4;
+
   .contentWrapper {
     position: relative;
     width: 100%;
@@ -88,17 +87,30 @@
     .genreWiseResults {
       width: 100%;
       height: 700px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      justify-content: center;
       gap: 0.65rem;
       overflow-y: scroll;
       padding: 10px;
+      display: grid;
+      grid-template-areas:
+        "G1 G1 G2"
+        "G1 G1 G3"
+        "G4 G5 G6"
+        "G7 G8 G8"
+        "G9 G8 G8"
+        "G10 G11 G12"
+        "G13 G13 G14"
+        "G13 G13 G15"
+        "G16 G17 G18"
+        "G19 G20 G18";
 
       @include md {
-        display: grid;
         gap: 0.75rem;
+        grid-template-areas:
+          "G1 G1 G2 G3 G4 G5"
+          "G1 G1 G6 G7 G8 G8"
+          "G9 G10 G11 G12 G8 G8"
+          "G13 G13 G14 G15 G16 G17"
+          "G13 G13 G18 G19 G20 G20";
       }
     }
   }

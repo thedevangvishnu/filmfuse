@@ -4,7 +4,7 @@ import LazyImage from "../lazyLoadImage/LazyImage";
 
 import "./GenreWiseMediaCard.styles.scss";
 
-const GenreWiseMediaCard = ({ item }) => {
+const GenreWiseMediaCard = ({ item, gridItem }) => {
   const navigate = useNavigate();
   const [fullPosterUrl, setFullPosterUrl] = useState("");
 
@@ -17,7 +17,8 @@ const GenreWiseMediaCard = ({ item }) => {
 
   return (
     <div
-      className="genreWiseMediaCard"
+      className={`genreWiseMediaCard G${gridItem}`}
+      style={{ gridArea: `G${gridItem}` }}
       onClick={() =>
         navigate(`/${item?.media_type || item?.endpoint}/${item?.id}`)
       }
