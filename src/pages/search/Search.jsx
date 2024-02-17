@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa6";
 
 import useFetch from "../../hooks/useFetch";
+import useFetchAndCombine from "../../hooks/useFetchAndCombine";
 
 import { AppContext } from "../../context/AppContext";
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
@@ -18,8 +19,12 @@ import "./Search.styles.scss";
 
 const Search = () => {
   const [searchPageGenres, setSearchPageGenres] = useState([]);
+  const [currentGenreId, setCurrentGenreId] = useState(null);
 
   const { genres } = useContext(AppContext);
+  // console.log(genres);
+
+  useFetchAndCombine(currentGenreId);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,7 +37,7 @@ const Search = () => {
       "Drama",
       "Romance",
       "Thriller",
-      "Horror",
+      "Documentary",
     ];
     const allGenres = Object.values(genres).filter((genre) =>
       desiredGenres.includes(genre.name)
@@ -44,6 +49,10 @@ const Search = () => {
     populateGenresForSearchPage();
   }, []);
 
+  useEffect(() => {
+    setCurrentGenreId(searchPageGenres[0]?.id);
+  }, [searchPageGenres]);
+
   const handleGoBack = () => {
     if (location.state && location.state.source) {
       navigate(location.state.source);
@@ -51,8 +60,6 @@ const Search = () => {
       navigate("/");
     }
   };
-
-  const handleTabClick = (genreId) => {};
 
   return (
     <div className="searchPage">
@@ -75,7 +82,7 @@ const Search = () => {
             <GenresTab
               key={genre.id}
               genre={genre.name}
-              onTabClick={() => handleTabClick(genre.id)}
+              onTabClick={() => setCurrentGenreId(genre.id)}
             />
           ))}
         </div>
