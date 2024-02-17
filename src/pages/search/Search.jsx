@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   FaXmark,
@@ -17,23 +17,32 @@ import GenresTab from "../../components/genreTab/GenresTab";
 import "./Search.styles.scss";
 
 const Search = () => {
-  const desiredGenres = [
-    "Action",
-    "Comedy",
-    "Crime",
-    "Drama",
-    "Romance",
-    "Thriller",
-    "Horror",
-  ];
+  const [searchPageGenres, setSearchPageGenres] = useState([]);
 
   const { genres } = useContext(AppContext);
-  const searchPageGenres = Object.values(genres).filter((genre) =>
-    desiredGenres.includes(genre.name)
-  );
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const populateGenresForSearchPage = () => {
+    const desiredGenres = [
+      "Action",
+      "Comedy",
+      "Crime",
+      "Drama",
+      "Romance",
+      "Thriller",
+      "Horror",
+    ];
+    const allGenres = Object.values(genres).filter((genre) =>
+      desiredGenres.includes(genre.name)
+    );
+    setSearchPageGenres(allGenres);
+  };
+
+  useEffect(() => {
+    populateGenresForSearchPage();
+  }, []);
 
   const handleGoBack = () => {
     if (location.state && location.state.source) {
@@ -42,6 +51,8 @@ const Search = () => {
       navigate("/");
     }
   };
+
+  const handleTabClick = (genreId) => {};
 
   return (
     <div className="searchPage">
@@ -61,7 +72,11 @@ const Search = () => {
         {/* genres tabs */}
         <div className="genresTabsContainer">
           {searchPageGenres.map((genre) => (
-            <GenresTab key={genre.id} genre={genre.name} />
+            <GenresTab
+              key={genre.id}
+              genre={genre.name}
+              onTabClick={() => handleTabClick(genre.id)}
+            />
           ))}
         </div>
 
