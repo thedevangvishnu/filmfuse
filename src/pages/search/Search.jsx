@@ -10,13 +10,14 @@ import {
 
 import useFetch from "../../hooks/useFetch";
 
+import { AppContext } from "../../context/AppContext";
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 import GenresTab from "../../components/genreTab/GenresTab";
 
 import "./Search.styles.scss";
 
 const Search = () => {
-  const searchGenres = [
+  const desiredGenres = [
     "Action",
     "Comedy",
     "Crime",
@@ -25,6 +26,11 @@ const Search = () => {
     "Thriller",
     "Horror",
   ];
+
+  const { genres } = useContext(AppContext);
+  const searchPageGenres = Object.values(genres).filter((genre) =>
+    desiredGenres.includes(genre.name)
+  );
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -54,8 +60,8 @@ const Search = () => {
 
         {/* genres tabs */}
         <div className="genresTabsContainer">
-          {searchGenres.map((item) => (
-            <GenresTab genre={item} />
+          {searchPageGenres.map((genre) => (
+            <GenresTab key={genre.id} genre={genre.name} />
           ))}
         </div>
 
