@@ -24,7 +24,8 @@ const Search = () => {
   const { genres } = useContext(AppContext);
   // console.log(genres);
 
-  useFetchAndCombine(currentGenreId);
+  const { data, isLoading } = useFetchAndCombine(currentGenreId);
+  console.log(data);
 
   const navigate = useNavigate();
   const location = useLocation();
