@@ -16,6 +16,9 @@ import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 import GenresTab from "../../components/genreTab/GenresTab";
 
 import "./Search.styles.scss";
+import MediaCard from "../../components/mediaCard/MediaCard";
+
+const BASE_URL = "https://image.tmdb.org/t/p/original";
 
 const Search = () => {
   const [searchPageGenres, setSearchPageGenres] = useState([]);
@@ -88,7 +91,17 @@ const Search = () => {
           ))}
         </div>
 
-        {/* search result */}
+        {/* genre-wise search result */}
+        {isLoading && <p>Loading all data...</p>}
+        {!isLoading && (
+          <div className="genreWiseResults">
+            {data?.results?.map((item) => (
+              <MediaCard item={item} />
+            ))}
+          </div>
+        )}
+
+        {/* query-wise search result */}
       </ContentWrapper>
     </div>
   );
