@@ -31,7 +31,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-left: 4rem;
+      padding-left: 2rem;
       gap: 0.5rem;
       z-index: 1;
 
@@ -49,8 +49,13 @@
       }
 
       .title {
-        font-size: 3rem;
+        font-size: 2.5rem;
         font-weight: 800;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .overview {
@@ -68,48 +73,85 @@
 
       .metaData {
         display: flex;
-        gap: 1.5rem;
+        gap: 0.5rem;
         align-items: center;
 
-        .date {
-          font-size: 1.5rem;
+        .metaItem {
+          font-size: 1rem;
           font-weight: 700;
+
+          &:nth-last-child(1) {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.1rem 1rem;
+            border-radius: 5px;
+          }
         }
 
-        .genresContainer {
-          .genres {
-            gap: 0.5rem;
-            .genreItem {
-              font-size: 0.85rem;
-              padding-inline: 8px;
-              box-shadow: none;
-            }
+        .dot {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background-color: #aaa;
+        }
+      }
+
+      .genresContainer {
+        .genres {
+          margin-left: -5px;
+          display: flex;
+          flex-wrap: wrap;
+          line-height: 1.1;
+          gap: 0.25rem;
+
+          .genreItem {
+            font-size: 0.85rem;
+            box-shadow: none;
+            background-color: transparent;
+          }
+
+          .bar {
+            height: 12px;
+            width: 1px;
+            background-color: #aaa;
           }
         }
       }
 
       .watchButton {
-        width: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        width: 50%;
+        height: 3rem;
         margin-top: 1rem;
+        font-size: 0.9rem;
 
-        button {
-          width: 100%;
-          padding: 1rem;
-          border: none;
-          outline: none;
-          font-size: 1.1rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(2px);
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.4s ease-in-out;
+
+        .icon,
+        p {
+          height: 100%;
+          display: flex;
+          align-items: center;
+        }
+
+        .icon {
+          font-size: 0.8rem;
+          margin-top: -2px;
+        }
+
+        p {
           font-weight: 600;
-          background: rgba(255, 255, 255, 0.3);
-          background-color: rgba(255, 255, 255, 0.4);
-          backdrop-filter: blur(2px);
-          color: white;
-          border-radius: 10px;
-          cursor: pointer;
-          transition: background-color 0.4s ease-in-out;
+        }
 
-          &:hover {
-            background-color: rgba(255, 255, 255, 0.6);
-          }
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.4);
         }
       }
     }

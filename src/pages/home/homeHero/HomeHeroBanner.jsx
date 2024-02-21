@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
+import { FaPlay } from "react-icons/fa";
 
 import useFetch from "../../../hooks/useFetch";
 
@@ -7,11 +9,11 @@ import LazyImage from "../../../components/lazyLoadImage/LazyImage";
 import Genres from "../../../components/genres/Genres";
 
 import "./HomeHeroBanner.styles.scss";
-import { useNavigate } from "react-router-dom";
 
 const HomeHeroBanner = () => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(5);
   const [item, setItem] = useState({});
+  const [language, setLanguage] = useState("English");
   const [bg, setBg] = useState(0);
 
   const { data, isLoading } = useFetch("/movie/upcoming");
@@ -23,8 +25,29 @@ const HomeHeroBanner = () => {
   }, [data, isLoading]);
 
   useEffect(() => {
+    console.log(media);
     loadInitialBanner();
   });
+
+  useEffect(() => {
+    chooseLanguage();
+  }, [index]);
+
+  const chooseLanguage = () => {
+    switch (item?.original_language) {
+      case "es":
+        setLanguage("Spanish");
+        break;
+      case "fr":
+        setLanguage("French");
+        break;
+      case "hi":
+        setLanguage("Hindi");
+        break;
+      default:
+        setLanguage("English");
+    }
+  };
 
   const loadInitialBanner = () => {
     const bgUrl = BASE_URL + item?.backdrop_path;
@@ -56,18 +79,29 @@ const HomeHeroBanner = () => {
               </div>
 
               <div className="metaData">
-                <p className="date">
+                <p className="metaItem">
                   {dayjs(item?.release_date).format("YYYY")}
                 </p>
-                <div className="genresContainer">
-                  <Genres genreIds={item?.genre_ids.map((genre) => genre)} />
-                </div>
+                <div className="dot"></div>
+
+                <p className="metaItem">{language}</p>
+                <div className="dot"></div>
+
+                <p className="metaItem">{!item?.adult ? "U/A" : "A"}</p>
+              </div>
+
+              <div className="genresContainer">
+                <Genres
+                  genreIds={item?.genre_ids.map((genre) => genre)}
+                  hasbars="true"
+                />
               </div>
 
               <div className="watchButton">
-                <button onClick={() => navigate(`/movie/${item?.id}`)}>
-                  Watch Trailer
-                </button>
+                <span className="icon">
+                  <FaPlay />
+                </span>
+                <p>Watch Trailer</p>
               </div>
             </div>
           </div>
