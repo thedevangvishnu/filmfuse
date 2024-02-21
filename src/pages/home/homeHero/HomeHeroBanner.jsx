@@ -11,7 +11,7 @@ import Genres from "../../../components/genres/Genres";
 import "./HomeHeroBanner.styles.scss";
 
 const HomeHeroBanner = () => {
-  const [index, setIndex] = useState(5);
+  const [index, setIndex] = useState(3);
   const [item, setItem] = useState({});
   const [language, setLanguage] = useState("English");
   const [bg, setBg] = useState(0);
