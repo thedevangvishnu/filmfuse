@@ -47,7 +47,7 @@
         gap: 1rem;
       }
 
-      @include lg {
+      @include xl {
         padding-left: 7rem;
       }
 
@@ -193,10 +193,9 @@
         font-size: 0.9rem;
         background-color: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(2px);
-        color: white;
         border-radius: 10px;
         cursor: pointer;
-        transition: background-color 0.4s ease-in-out;
+        transition: background-color 0.3s ease-in;
 
         @include md {
           height: 3.5rem;
@@ -212,6 +211,8 @@
           height: 100%;
           display: flex;
           align-items: center;
+          color: white;
+          transition: color 0.3s ease-in;
         }
 
         .icon {
@@ -232,8 +233,40 @@
         }
 
         &:hover {
-          background-color: rgba(255, 255, 255, 0.4);
+          background-color: #ddd;
+
+          .icon,
+          p {
+            color: var(--blackTwo);
+          }
         }
+      }
+    }
+  }
+
+  .arrows {
+    position: absolute;
+    bottom: 4rem;
+    right: 2rem;
+    z-index: 1;
+    display: flex;
+    gap: 0.5rem;
+
+    .icon {
+      background-color: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.45rem;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #ccc;
+      transition: color ease-in 0.3s, background-color ease-in 0.3s;
+
+      &:hover {
+        background-color: #ddd;
+        color: var(--blackTwo);
       }
     }
   }

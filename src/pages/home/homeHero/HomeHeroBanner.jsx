@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-import { FaPlay } from "react-icons/fa";
+import { FaPlay, FaAngleRight, FaAngleLeft } from "react-icons/fa";
 
 import useFetch from "../../../hooks/useFetch";
 
@@ -11,7 +11,7 @@ import Genres from "../../../components/genres/Genres";
 import "./HomeHeroBanner.styles.scss";
 
 const HomeHeroBanner = () => {
-  const [index, setIndex] = useState(3);
+  const [index, setIndex] = useState(0);
   const [item, setItem] = useState({});
   const [language, setLanguage] = useState("English");
   const [bg, setBg] = useState(0);
@@ -25,7 +25,6 @@ const HomeHeroBanner = () => {
   }, [data, isLoading]);
 
   useEffect(() => {
-    console.log(media);
     loadInitialBanner();
   });
 
@@ -57,12 +56,20 @@ const HomeHeroBanner = () => {
 
   const BASE_URL = "https://image.tmdb.org/t/p/original";
 
-  const formatDuration = (duration) => {
-    const hours = (duration / 60).toFixed(0);
-    const minutes = duration % 60;
+  const handleLeftArrow = () => {
+    if (index === 0) {
+      setIndex(media?.length - 1);
+    } else {
+      setIndex((prevIndex) => prevIndex - 1);
+    }
+  };
 
-    const totalDuration = `${hours}hrs ${minutes}mins`;
-    return totalDuration;
+  const handleRightArrow = () => {
+    if (index === media?.length - 1) {
+      setIndex(0);
+    } else {
+      setIndex((prevIndex) => prevIndex + 1);
+    }
   };
 
   return (
@@ -97,50 +104,26 @@ const HomeHeroBanner = () => {
                 />
               </div>
 
-              <div className="watchButton">
+              <div
+                className="watchButton"
+                onClick={() => navigate(`/movie/${item?.id}`)}
+              >
                 <span className="icon">
                   <FaPlay />
                 </span>
-                <p>Watch Trailer</p>
+                <p>Watch Now</p>
               </div>
             </div>
           </div>
-          {/* <div className="bannerItems">
-            {media?.map((item) => {
-              const url = BASE_URL + item?.backdrop_path;
-              return (
-                <div className="bannerItem">
-                  <LazyImage src={url} />
-                  <div className="itemContent">
-                    <h3 className="title">
-                      {item?.original_title || item?.title}
-                    </h3>
 
-                    <div className="overview">
-                      <p>{item?.overview}</p>
-                    </div>
-
-                    <div className="metaData">
-                      <p className="date">
-                        {dayjs(item?.release_date).format("YYYY")}
-                      </p>
-                      <div className="genresContainer">
-                        <Genres
-                          genreIds={item?.genre_ids.map((genre) => genre)}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="watchButton">
-                      <button onClick={() => navigate(`/movie/${item?.id}`)}>
-                        Watch Trailer
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div> */}
+          <div className="arrows">
+            <div className="leftArrow icon" onClick={handleLeftArrow}>
+              <FaAngleLeft />
+            </div>
+            <div className="rightArrow icon" onClick={handleRightArrow}>
+              <FaAngleRight />
+            </div>
+          </div>
 
           <div className="thumbnailItems"></div>
         </>
