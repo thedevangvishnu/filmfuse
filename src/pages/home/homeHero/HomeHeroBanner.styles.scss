@@ -39,6 +39,7 @@
       flex-direction: column;
       justify-content: center;
       padding-left: 2rem;
+      padding-right: 0.5rem;
       gap: 0.5rem;
       z-index: 1;
 
@@ -84,7 +85,7 @@
       }
 
       .overview {
-        max-width: 70%;
+        max-width: 80%;
 
         @include md {
           max-width: 50%;
@@ -241,6 +242,16 @@
           }
         }
       }
+
+      //   .title,
+      //   .overview,
+      //   .metaData,
+      //   .genresContainer,
+      //   .watchButton {
+      //     opacity: 0;
+      //     filter: blur(10px);
+      //     transform: translateY(2rem);
+      //   }
     }
   }
 
@@ -270,4 +281,16 @@
       }
     }
   }
+}
+
+@keyframes showContent {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.animate {
+  animation: 1s linear 1 forwards showContent;
 }

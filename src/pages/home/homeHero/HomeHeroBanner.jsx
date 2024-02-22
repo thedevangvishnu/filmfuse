@@ -15,6 +15,7 @@ const HomeHeroBanner = () => {
   const [item, setItem] = useState({});
   const [language, setLanguage] = useState("English");
   const [bg, setBg] = useState(0);
+  const [showAnimation, setShowAnimation] = useState(false);
 
   const { data, isLoading } = useFetch("/movie/upcoming");
 
@@ -25,12 +26,16 @@ const HomeHeroBanner = () => {
   }, [data, isLoading]);
 
   useEffect(() => {
-    loadInitialBanner();
-  });
+    setItemAndLoadBanner();
+  }, [media, index, item]);
 
   useEffect(() => {
     chooseLanguage();
   }, [index]);
+
+  //   useEffect(() => {
+  //     setShowAnimation(true);
+  //   }, [index]);
 
   const chooseLanguage = () => {
     switch (item?.original_language) {
@@ -48,13 +53,13 @@ const HomeHeroBanner = () => {
     }
   };
 
-  const loadInitialBanner = () => {
+  const setItemAndLoadBanner = () => {
+    setItem(media?.[index]);
+
+    const BASE_URL = "https://image.tmdb.org/t/p/original";
     const bgUrl = BASE_URL + item?.backdrop_path;
     setBg(bgUrl);
-    setItem(media?.[index]);
   };
-
-  const BASE_URL = "https://image.tmdb.org/t/p/original";
 
   const handleLeftArrow = () => {
     if (index === 0) {
@@ -79,13 +84,15 @@ const HomeHeroBanner = () => {
           <div className="bannerItem">
             <LazyImage src={bg} />
             <div className="itemContent">
-              <h3 className="title">{item?.original_title || item?.title}</h3>
+              <h3 className={`title ${showAnimation ? "animate" : null}`}>
+                {item?.original_title || item?.title}
+              </h3>
 
-              <div className="overview">
+              <div className={`overview ${showAnimation ? "animate" : null}`}>
                 <p>{item?.overview}</p>
               </div>
 
-              <div className="metaData">
+              <div className={`metaData ${showAnimation ? "animate" : null}`}>
                 <p className="metaItem">
                   {dayjs(item?.release_date).format("YYYY")}
                 </p>
@@ -97,7 +104,11 @@ const HomeHeroBanner = () => {
                 <p className="metaItem">{!item?.adult ? "U/A" : "A"}</p>
               </div>
 
-              <div className="genresContainer">
+              <div
+                className={`genresContainer ${
+                  showAnimation ? "animate" : null
+                }`}
+              >
                 <Genres
                   genreIds={item?.genre_ids.map((genre) => genre)}
                   hasbars="true"
