@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { FaPlay, FaAngleRight, FaAngleLeft } from "react-icons/fa";
@@ -18,6 +18,8 @@ const HomeHeroBanner = () => {
   const [language, setLanguage] = useState("");
   const [bg, setBg] = useState(0);
   const [showAnimation, setShowAnimation] = useState(false);
+
+  const thumbnailItems = useRef();
 
   const { data, isLoading } = useFetch("/movie/upcoming");
 
@@ -75,6 +77,17 @@ const HomeHeroBanner = () => {
     } else {
       setIndex((prevIndex) => prevIndex + 1);
     }
+  };
+
+  const scrollThumbnails = (direction) => {
+    const container = thumbnailItems.current;
+
+    const scrollWidth = container.offsetWidth + 60;
+
+    container.scrollBy({
+      left: direction === "left" ? -scrollWidth : scrollWidth,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -137,7 +150,7 @@ const HomeHeroBanner = () => {
           </div>
 
           <div className="thumbnails">
-            <div className="thumbnailItems">
+            <div className="thumbnailItems" ref={thumbnailItems}>
               {media?.map((item) => {
                 return (
                   <div className="thumbnailItem">
@@ -147,11 +160,17 @@ const HomeHeroBanner = () => {
               })}
             </div>
 
-            <div className="thumbnailLeftArrow">
+            <div
+              className="thumbnailLeftArrow"
+              onClick={() => scrollThumbnails("left")}
+            >
               <FaAngleLeft />
             </div>
 
-            <div className="thumbnailRightArrow">
+            <div
+              className="thumbnailRightArrow"
+              onClick={() => scrollThumbnails("right")}
+            >
               <FaAngleRight />
             </div>
           </div>

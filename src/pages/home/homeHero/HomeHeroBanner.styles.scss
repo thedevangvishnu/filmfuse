@@ -309,20 +309,18 @@
         z-index: 3;
         padding: 15px 5px;
 
+        @include lg {
+          gap: 0.75rem;
+        }
+
         .thumbnailItem {
-          min-width: 80px;
+          min-width: 100px;
           aspect-ratio: 1 / 1.5;
-          opacity: 0.5;
-          transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+
           cursor: pointer;
 
           @include lg {
             min-width: 120px;
-          }
-
-          &:hover {
-            opacity: 1;
-            transform: scale(1.1);
           }
 
           .lazy-load-image-background {
@@ -335,8 +333,13 @@
               height: 100%;
               object-fit: cover;
               border-radius: 10px;
-              border: 1px solid transparent;
-              transition: border 0.2s ease-in;
+              opacity: 0.5;
+              transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+
+              &:hover {
+                opacity: 1;
+                transform: scale(1.08);
+              }
             }
           }
         }
