@@ -33,11 +33,22 @@ const HomeHeroBanner = () => {
   useEffect(() => {
     setItem(media?.[index]);
     loadItemBanner();
+    chooseLanguage();
   }, [data, index, item]);
 
   useEffect(() => {
-    chooseLanguage();
-  }, [index]);
+    const interval = setInterval(() => {
+      if (index === media?.length - 1) {
+        setIndex(0);
+        setThumbnailItemIndex(0);
+      } else {
+        setIndex((prevIndex) => prevIndex + 1);
+        setThumbnailItemIndex((prevIndex) => prevIndex + 1);
+      }
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, [index, thumbnailItemIndex]);
 
   //   useEffect(() => {
   //     setShowAnimation(true);
@@ -160,6 +171,7 @@ const HomeHeroBanner = () => {
               {media?.map((item, idx) => {
                 return (
                   <div
+                    key={item?.id}
                     className={`thumbnailItem ${
                       idx === thumbnailItemIndex ? "activeThumbnail" : ""
                     }`}
