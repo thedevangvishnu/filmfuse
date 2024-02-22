@@ -17,6 +17,7 @@ const HomeHeroBanner = () => {
   const [item, setItem] = useState({});
   const [language, setLanguage] = useState("");
   const [bg, setBg] = useState(0);
+  const [thumbnailItemIndex, setThumbnailItemIndex] = useState(0);
   const [showAnimation, setShowAnimation] = useState(false);
 
   const thumbnailItems = useRef();
@@ -90,6 +91,11 @@ const HomeHeroBanner = () => {
     });
   };
 
+  const onThumbnailItemClick = (itemIndex) => {
+    setIndex(itemIndex);
+    setThumbnailItemIndex(itemIndex);
+  };
+
   return (
     <div className="homeHeroBanner">
       {!isLoading && (
@@ -151,9 +157,14 @@ const HomeHeroBanner = () => {
 
           <div className="thumbnails">
             <div className="thumbnailItems" ref={thumbnailItems}>
-              {media?.map((item) => {
+              {media?.map((item, idx) => {
                 return (
-                  <div className="thumbnailItem">
+                  <div
+                    className={`thumbnailItem ${
+                      idx === thumbnailItemIndex ? "activeThumbnail" : ""
+                    }`}
+                    onClick={() => onThumbnailItemClick(idx)}
+                  >
                     <LazyImage src={BASE_URL + item?.poster_path} />
                   </div>
                 );

@@ -316,8 +316,17 @@
         .thumbnailItem {
           min-width: 100px;
           aspect-ratio: 1 / 1.5;
-
           cursor: pointer;
+
+          &.activeThumbnail {
+            .lazy-load-image-background {
+              img {
+                opacity: 1;
+                transform: scale(1.08);
+                border: 1px solid white;
+              }
+            }
+          }
 
           @include lg {
             min-width: 120px;
@@ -334,7 +343,9 @@
               object-fit: cover;
               border-radius: 10px;
               opacity: 0.5;
-              transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+              border: 1px solid transparent;
+              transition: opacity 0.2s ease-in, transform 0.2s ease-in,
+                border 0.2s ease-in;
 
               &:hover {
                 opacity: 1;
