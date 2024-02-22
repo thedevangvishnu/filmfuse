@@ -43,6 +43,18 @@ const ExploreBanner = ({ mediaType }) => {
     chooseLanguage();
   }, [data, mediaIndex, mediaItem]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (mediaIndex === media?.length - 1) {
+        setMediaIndex(0);
+      } else {
+        setMediaIndex((prevIndex) => prevIndex + 1);
+      }
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, [mediaIndex]);
+
   const loadItemBanner = () => {
     const bgUrl = BASE_URL + mediaItem?.backdrop_path;
     setBg(bgUrl);
@@ -64,6 +76,22 @@ const ExploreBanner = ({ mediaType }) => {
     }
   };
 
+  const handleLeftArrow = () => {
+    if (mediaIndex === 0) {
+      setMediaIndex(media?.length - 1);
+    } else {
+      setMediaIndex((prevIndex) => prevIndex - 1);
+    }
+  };
+
+  const handleRightArrow = () => {
+    if (mediaIndex === media?.length - 1) {
+      setMediaIndex(0);
+    } else {
+      setMediaIndex((prevIndex) => prevIndex + 1);
+    }
+  };
+
   // const scrollContainer = (direction) => {
   //   const container = bannerContainer.current;
   //   const scrollWidth =
@@ -79,19 +107,13 @@ const ExploreBanner = ({ mediaType }) => {
 
   return (
     <div className="exploreBannerContainer">
-      {/* <div
-        className="leftArrowContainer"
-        onClick={() => scrollContainer("left")}
-      >
+      <div className="leftArrowContainer" onClick={handleLeftArrow}>
         <FaCircleChevronLeft className="arrow" />
       </div>
 
-      <div
-        className="rightArrowContainer"
-        onClick={() => scrollContainer("right")}
-      >
+      <div className="rightArrowContainer" onClick={handleRightArrow}>
         <FaCircleChevronRight className="arrow" />
-      </div> */}
+      </div>
 
       {!isLoading && (
         <>
@@ -99,7 +121,9 @@ const ExploreBanner = ({ mediaType }) => {
             <LazyImage src={bg} />
             <div className="itemContent">
               <h3 className={`title `}>
-                {mediaItem?.original_title || mediaItem?.title}
+                {mediaItem?.original_title ||
+                  mediaItem?.title ||
+                  mediaItem?.name}
               </h3>
 
               <div className={`overview `}>
@@ -139,7 +163,10 @@ const ExploreBanner = ({ mediaType }) => {
 
           <div className="dotsContainer">
             {media?.map((item, index) => (
-              <GoDotFill key={item?.id} className="dot" />
+              <GoDotFill
+                key={item?.id}
+                className={`dot ${index === mediaIndex ? "activeDot" : ""}`}
+              />
             ))}
           </div>
           {/* 
