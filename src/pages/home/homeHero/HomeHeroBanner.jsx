@@ -10,10 +10,12 @@ import Genres from "../../../components/genres/Genres";
 
 import "./HomeHeroBanner.styles.scss";
 
+const BASE_URL = "https://image.tmdb.org/t/p/original";
+
 const HomeHeroBanner = () => {
   const [index, setIndex] = useState(0);
   const [item, setItem] = useState({});
-  const [language, setLanguage] = useState("English");
+  const [language, setLanguage] = useState("");
   const [bg, setBg] = useState(0);
   const [showAnimation, setShowAnimation] = useState(false);
 
@@ -23,11 +25,12 @@ const HomeHeroBanner = () => {
 
   const media = useMemo(() => {
     return data?.results?.splice(0, 10);
-  }, [data, isLoading]);
+  }, [data]);
 
   useEffect(() => {
-    setItemAndLoadBanner();
-  }, [media, index, item]);
+    setItem(media?.[index]);
+    loadItemBanner();
+  }, [data, index, item]);
 
   useEffect(() => {
     chooseLanguage();
@@ -53,10 +56,7 @@ const HomeHeroBanner = () => {
     }
   };
 
-  const setItemAndLoadBanner = () => {
-    setItem(media?.[index]);
-
-    const BASE_URL = "https://image.tmdb.org/t/p/original";
+  const loadItemBanner = () => {
     const bgUrl = BASE_URL + item?.backdrop_path;
     setBg(bgUrl);
   };
@@ -136,7 +136,25 @@ const HomeHeroBanner = () => {
             </div>
           </div>
 
-          <div className="thumbnailItems"></div>
+          <div className="thumbnails">
+            <div className="thumbnailItems">
+              {media?.map((item) => {
+                return (
+                  <div className="thumbnailItem">
+                    <LazyImage src={BASE_URL + item?.poster_path} />
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="thumbnailLeftArrow">
+              <FaAngleLeft />
+            </div>
+
+            <div className="thumbnailRightArrow">
+              <FaAngleRight />
+            </div>
+          </div>
         </>
       )}
     </div>

@@ -61,7 +61,7 @@
         background: linear-gradient(
           180deg,
           rgb(15, 5, 37, 0) 0%,
-          rgb(10, 3, 26, 1) 88%
+          rgb(10, 3, 26, 1) 78%
         );
       }
 
@@ -188,7 +188,7 @@
         align-items: center;
         justify-content: center;
         gap: 0.4rem;
-        width: 50%;
+        width: 40%;
         height: 3rem;
         margin-top: 1rem;
         font-size: 0.9rem;
@@ -263,6 +263,11 @@
     display: flex;
     gap: 0.5rem;
 
+    @include md {
+      display: none;
+      visibility: hidden;
+    }
+
     .icon {
       background-color: rgba(255, 255, 255, 0.2);
       display: flex;
@@ -279,6 +284,107 @@
         background-color: #ddd;
         color: var(--blackTwo);
       }
+    }
+  }
+
+  .thumbnails {
+    display: none;
+    visibility: hidden;
+
+    @include md {
+      visibility: visible;
+      display: block;
+      position: absolute;
+      bottom: 5rem;
+      left: 48%;
+      right: 1.5rem;
+
+      .thumbnailItems {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        overflow-x: scroll;
+        z-index: 3;
+        padding: 15px 5px;
+
+        .thumbnailItem {
+          min-width: 80px;
+          aspect-ratio: 1 / 1.5;
+          opacity: 0.5;
+          transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+          cursor: pointer;
+
+          @include lg {
+            min-width: 120px;
+          }
+
+          &:hover {
+            opacity: 1;
+            transform: scale(1.1);
+          }
+
+          .lazy-load-image-background {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: 10px;
+              border: 1px solid transparent;
+              transition: border 0.2s ease-in;
+            }
+          }
+        }
+      }
+
+      .thumbnailLeftArrow,
+      .thumbnailRightArrow {
+        position: absolute;
+        top: 45%;
+        z-index: 6;
+        background-color: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.45rem;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 0.9rem;
+        color: #ccc;
+        transition: color ease-in 0.3s, background-color ease-in 0.3s;
+
+        &:hover {
+          background-color: #ddd;
+          color: var(--blackTwo);
+        }
+
+        @include lg {
+          font-size: 1.1rem;
+        }
+      }
+
+      .thumbnailLeftArrow {
+        left: -0.5rem;
+        box-shadow: 8px 0px 10px rgba(0, 0, 0, 0.3);
+
+        @include lg {
+          left: -0.75rem;
+        }
+      }
+
+      .thumbnailRightArrow {
+        right: -0.75rem;
+        box-shadow: -8px 0px 10px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    @include lg {
+      right: 3.5rem;
     }
   }
 }
