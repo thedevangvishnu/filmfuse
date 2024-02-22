@@ -32,9 +32,7 @@ const ExploreBanner = ({ mediaType }) => {
   const { data, isLoading } = useFetch(`/${mediaType}/popular`);
 
   const media = useMemo(() => {
-    return data?.results
-      ?.sort((a, b) => a.popularity > b.popularity)
-      ?.splice(0, 5);
+    return data?.results?.splice(0, 5);
   }, [data]);
 
   useEffect(() => {
