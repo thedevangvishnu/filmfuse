@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-import { FaPlay, FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import {
+  FaPlay,
+  FaAngleRight,
+  FaAngleLeft,
+  FaLessThanEqual,
+} from "react-icons/fa";
 
 import useFetch from "../../../hooks/useFetch";
 

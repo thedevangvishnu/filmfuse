@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { GoDotFill } from "react-icons/go";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 
@@ -7,40 +7,49 @@ import useFetch from "../../../hooks/useFetch";
 import "./ExploreBanner.styles.scss";
 import LazyImage from "../../../components/lazyLoadImage/LazyImage";
 
+const BASE_URL = "https://image.tmdb.org/t/p/original";
+
 const ExploreBanner = ({ mediaType }) => {
   const [mediaIndex, setMediaIndex] = useState(0);
-  const [mediaList, setMediaList] = useState([]);
+  const [mediaItem, setMediaItem] = useState({});
+  const [bg, setBg] = useState("");
+
   const bannerContainer = useRef();
 
   const { data, isLoading } = useFetch(`/${mediaType}/popular`);
 
-  useEffect(() => {
-    const sortedData = data?.results?.sort(
-      (a, b) => a.popularity > b.popularity
-    );
-    setMediaList(sortedData?.splice(0, 5));
+  const media = useMemo(() => {
+    return data?.results
+      ?.sort((a, b) => a.popularity > b.popularity)
+      ?.splice(0, 5);
   }, [data]);
 
-  useEffect(() => {});
+  useEffect(() => {
+    setMediaItem(media?.[mediaIndex]);
+    loadItemBanner();
+  }, [data, mediaIndex, mediaItem]);
 
-  const BASE_URL = "https://image.tmdb.org/t/p/original";
-
-  const scrollContainer = (direction) => {
-    const container = bannerContainer.current;
-    const scrollWidth =
-      direction === "left"
-        ? container.scrollLeft - container.offsetWidth
-        : container.scrollLeft + container.offsetWidth;
-
-    container.scrollTo({
-      left: scrollWidth,
-      behavior: "smooth",
-    });
+  const loadItemBanner = () => {
+    const bgUrl = BASE_URL + mediaItem?.backdrop_path;
+    setBg(bgUrl);
   };
+
+  // const scrollContainer = (direction) => {
+  //   const container = bannerContainer.current;
+  //   const scrollWidth =
+  //     direction === "left"
+  //       ? container.scrollLeft - container.offsetWidth
+  //       : container.scrollLeft + container.offsetWidth;
+
+  //   container.scrollTo({
+  //     left: scrollWidth,
+  //     behavior: "smooth",
+  //   });
+  // };
 
   return (
     <div className="exploreBannerContainer">
-      <div
+      {/* <div
         className="leftArrowContainer"
         onClick={() => scrollContainer("left")}
       >
@@ -52,22 +61,16 @@ const ExploreBanner = ({ mediaType }) => {
         onClick={() => scrollContainer("right")}
       >
         <FaCircleChevronRight className="arrow" />
-      </div>
+      </div> */}
 
       {!isLoading && (
         <>
-          <div className="bannerContainer" ref={bannerContainer}>
-            {mediaList?.map((media) => {
-              return (
-                <>
-                  <LazyImage src={`${BASE_URL}${media?.backdrop_path}`} />
-                </>
-              );
-            })}
+          <div className="bannerContainer">
+            <LazyImage src={bg} />
           </div>
 
           <div className="dotsContainer">
-            {mediaList?.map((item, index) => (
+            {media?.map((item, index) => (
               <GoDotFill key={item?.id} className="dot" />
             ))}
           </div>
