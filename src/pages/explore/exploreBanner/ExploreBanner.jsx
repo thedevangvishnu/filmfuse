@@ -166,11 +166,10 @@ const ExploreBanner = ({ mediaType }) => {
               <GoDotFill
                 key={item?.id}
                 className={`dot ${index === mediaIndex ? "activeDot" : ""}`}
+                onClick={() => setMediaIndex(index)}
               />
             ))}
           </div>
-          {/* 
-          <div className="overlayContainer"></div> */}
         </>
       )}
     </div>

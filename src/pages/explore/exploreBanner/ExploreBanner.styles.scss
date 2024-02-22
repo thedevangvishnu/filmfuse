@@ -201,6 +201,8 @@
         .genres {
           margin-left: -5px;
           display: flex;
+          align-items: center;
+          justify-content: center;
           flex-wrap: wrap;
           line-height: 1.1;
           gap: 0.25rem;
@@ -306,7 +308,7 @@
 
   .dotsContainer {
     position: absolute;
-    bottom: 1.5rem;
+    bottom: 3rem;
     z-index: 4;
     display: flex;
     align-items: center;
@@ -326,22 +328,8 @@
 
       &.activeDot {
         color: white;
-        transform: scale(1.4);
+        transform: scale(1.5);
       }
     }
   }
-
-  // .overlayContainer {
-  //   width: 100%;
-  //   height: 300px;
-  //   position: absolute;
-  //   bottom: 0;
-  //   left: 0;
-  //   background: linear-gradient(
-  //     180deg,
-  //     rgb(15, 5, 37, 0) 0%,
-  //     rgb(10, 3, 26, 1) 78%
-  //   );
-  //   z-index: 2;
-  // }
 }
