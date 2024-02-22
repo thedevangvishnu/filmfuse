@@ -19,6 +19,7 @@ const HomeHeroBanner = () => {
   const [bg, setBg] = useState(0);
   const [thumbnailItemIndex, setThumbnailItemIndex] = useState(0);
   const [showAnimation, setShowAnimation] = useState(false);
+  const [enableThumbnailScroll, setEnableThumbnailScroll] = useState(false);
 
   const thumbnailItems = useRef();
 
@@ -49,6 +50,29 @@ const HomeHeroBanner = () => {
 
     return () => clearInterval(interval);
   }, [index, thumbnailItemIndex]);
+
+  useEffect(() => {
+    const container = thumbnailItems.current;
+    const scrollWidth = container?.offsetWidth / 2;
+
+    if (
+      thumbnailItemIndex === 3 ||
+      thumbnailItemIndex == 6 ||
+      thumbnailItemIndex == 8
+    ) {
+      container?.scrollBy({
+        left: scrollWidth,
+        behavior: "smooth",
+      });
+    }
+
+    if (thumbnailItemIndex === 0) {
+      container?.scrollBy({
+        left: -container.scrollWidth,
+        behavior: "smooth",
+      });
+    }
+  }, [data, thumbnailItemIndex]);
 
   //   useEffect(() => {
   //     setShowAnimation(true);

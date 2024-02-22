@@ -314,7 +314,7 @@
         }
 
         .thumbnailItem {
-          min-width: 100px;
+          min-width: 80px;
           aspect-ratio: 1 / 1.5;
           cursor: pointer;
 
@@ -329,6 +329,10 @@
           }
 
           @include lg {
+            min-width: 100px;
+          }
+
+          @include xl {
             min-width: 120px;
           }
 
