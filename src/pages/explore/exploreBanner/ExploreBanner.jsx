@@ -1,6 +1,18 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+
 import { GoDotFill } from "react-icons/go";
+import Genres from "../../../components/genres/Genres";
+
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
+
+import {
+  FaPlay,
+  FaAngleRight,
+  FaAngleLeft,
+  FaLessThanEqual,
+} from "react-icons/fa";
 
 import useFetch from "../../../hooks/useFetch";
 
@@ -13,6 +25,7 @@ const ExploreBanner = ({ mediaType }) => {
   const [mediaIndex, setMediaIndex] = useState(0);
   const [mediaItem, setMediaItem] = useState({});
   const [bg, setBg] = useState("");
+  const [language, setLanguage] = useState("");
 
   const bannerContainer = useRef();
 
@@ -27,11 +40,28 @@ const ExploreBanner = ({ mediaType }) => {
   useEffect(() => {
     setMediaItem(media?.[mediaIndex]);
     loadItemBanner();
+    chooseLanguage();
   }, [data, mediaIndex, mediaItem]);
 
   const loadItemBanner = () => {
     const bgUrl = BASE_URL + mediaItem?.backdrop_path;
     setBg(bgUrl);
+  };
+
+  const chooseLanguage = () => {
+    switch (mediaItem?.original_language) {
+      case "es":
+        setLanguage("Spanish");
+        break;
+      case "fr":
+        setLanguage("French");
+        break;
+      case "hi":
+        setLanguage("Hindi");
+        break;
+      default:
+        setLanguage("English");
+    }
   };
 
   // const scrollContainer = (direction) => {
@@ -67,6 +97,44 @@ const ExploreBanner = ({ mediaType }) => {
         <>
           <div className="bannerContainer">
             <LazyImage src={bg} />
+            <div className="itemContent">
+              <h3 className={`title `}>
+                {mediaItem?.original_title || mediaItem?.title}
+              </h3>
+
+              <div className={`overview `}>
+                <p>{mediaItem?.overview}</p>
+              </div>
+
+              <div className={`metaData `}>
+                <p className="metaItem">
+                  {dayjs(mediaItem?.release_date).format("YYYY")}
+                </p>
+                <div className="dot"></div>
+
+                <p className="metaItem">{language}</p>
+                <div className="dot"></div>
+
+                <p className="metaItem">{!mediaItem?.adult ? "U/A" : "A"}</p>
+              </div>
+
+              <div className={`genresContainer`}>
+                <Genres
+                  genreIds={mediaItem?.genre_ids.map((genre) => genre)}
+                  hasbars="true"
+                />
+              </div>
+
+              <div
+                className="watchButton"
+                onClick={() => navigate(`/${mediaType}/${mediaItem?.id}`)}
+              >
+                <span className="icon">
+                  <FaPlay />
+                </span>
+                <p>Watch Now</p>
+              </div>
+            </div>
           </div>
 
           <div className="dotsContainer">
@@ -74,8 +142,8 @@ const ExploreBanner = ({ mediaType }) => {
               <GoDotFill key={item?.id} className="dot" />
             ))}
           </div>
-
-          <div className="overlayContainer"></div>
+          {/* 
+          <div className="overlayContainer"></div> */}
         </>
       )}
     </div>
