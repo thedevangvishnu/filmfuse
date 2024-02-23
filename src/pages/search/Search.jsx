@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   FaXmark,
@@ -72,18 +72,18 @@ const Search = () => {
     }
   };
 
+  const timeout = useRef();
+
   useEffect(() => {
     setPageNumber(1);
     setSearchData(null);
 
-    let timeout;
-
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
+    clearTimeout(timeout.current);
+    timeout.current = setTimeout(() => {
       fetchInitialSearchData();
     }, 200);
 
-    return () => clearTimeout(timeout);
+    return () => clearTimeout(timeout.current);
   }, [query]);
 
   const onSearchInputChange = (e) => {
