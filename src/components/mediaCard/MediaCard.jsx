@@ -8,7 +8,7 @@ import CircleRating from "../circleRating/CircleRating";
 
 import "./MediaCard.styles.scss";
 
-const MediaCard = ({ item, mediaType }) => {
+const MediaCard = ({ item, mediaType = null }) => {
   const navigate = useNavigate();
   const [fullPosterUrl, setFullPosterUrl] = useState("");
 

@@ -7,32 +7,46 @@ import {
   FaDeleteLeft,
   FaArrowLeft,
 } from "react-icons/fa6";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import useFetch from "../../hooks/useFetch";
 import useFetchAndCombine from "../../hooks/useFetchAndCombine";
+import fetchDataFromApi from "../../utils/api";
 
 import { AppContext } from "../../context/AppContext";
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 import GenresTab from "../../components/genreTab/GenresTab";
 
-import "./Search.styles.scss";
-import MediaCard from "../../components/mediaCard/MediaCard";
 import GenreWiseMediaCard from "../../components/genreWiseMediaCard/GenreWiseMediaCard";
+import SearchResultCard from "../../components/searchResultCard/SearchResultCard";
+
+import "./Search.styles.scss";
 
 const BASE_URL = "https://image.tmdb.org/t/p/original";
 
 const Search = () => {
   const [searchPageGenres, setSearchPageGenres] = useState([]);
   const [currentGenreId, setCurrentGenreId] = useState(null);
+  const [query, setQuery] = useState("");
+  const [searchData, setSearchData] = useState({});
+  const [isSearchLoading, setIsSearchLoading] = useState(null);
+  const [searchError, setSearchError] = useState(null);
+  const [pageNumber, setPageNumber] = useState(0);
 
   const { genres } = useContext(AppContext);
-  // console.log(genres);
 
   const { data, isLoading } = useFetchAndCombine(currentGenreId);
-  console.log(data);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    populateGenresForSearchPage();
+  }, []);
+
+  useEffect(() => {
+    setCurrentGenreId(searchPageGenres[0]?.id);
+  }, [searchPageGenres]);
 
   const populateGenresForSearchPage = () => {
     const desiredGenres = [
@@ -50,19 +64,63 @@ const Search = () => {
     setSearchPageGenres(allGenres);
   };
 
-  useEffect(() => {
-    populateGenresForSearchPage();
-  }, []);
-
-  useEffect(() => {
-    setCurrentGenreId(searchPageGenres[0]?.id);
-  }, [searchPageGenres]);
-
   const handleGoBack = () => {
     if (location.state && location.state.source) {
       navigate(location.state.source);
     } else {
       navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    setPageNumber(1);
+    setSearchData(null);
+    fetchInitialSearchData();
+  }, [query]);
+
+  const onSearchInputChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const fetchInitialSearchData = async () => {
+    setSearchData([]);
+    setIsSearchLoading(true);
+    setSearchError(null);
+    try {
+      const response = await fetchDataFromApi(`/search/multi`, { query });
+
+      if (response) {
+        setSearchData(response);
+        setIsSearchLoading(false);
+        setSearchError(null);
+        setPageNumber((prevPage) => prevPage + 1);
+      }
+    } catch (error) {
+      setSearchData({});
+      setIsSearchLoading(false);
+      setSearchError(error);
+    }
+  };
+
+  const fetchSearchDataForNextPage = async () => {
+    setSearchError(null);
+    try {
+      const response = await fetchDataFromApi(`/search/multi`, {
+        query,
+        page: pageNumber,
+      });
+
+      if (searchData) {
+        setSearchData({
+          ...searchData,
+          results: [...searchData?.results, ...response?.results],
+        });
+      } else {
+        setSearchData(response);
+      }
+      setPageNumber((prevPage) => prevPage + 1);
+    } catch (error) {
+      setSearchError(error);
     }
   };
 
@@ -75,26 +133,32 @@ const Search = () => {
 
         {/* search container */}
         <div className="searchContainer">
-          <input type="text" placeholder="Search movies or tv shows" />
+          <input
+            type="text"
+            placeholder="Search movies or tv shows"
+            onChange={onSearchInputChange}
+          />
           <span>
             <FaDeleteLeft className="closeIcon icon" />
           </span>
         </div>
 
         {/* genres tabs */}
-        <div className="genresTabsContainer">
-          {searchPageGenres.map((genre) => (
-            <GenresTab
-              key={genre.id}
-              genre={genre.name}
-              onTabClick={() => setCurrentGenreId(genre.id)}
-            />
-          ))}
-        </div>
+        {!query && (
+          <div className="genresTabsContainer">
+            {searchPageGenres.map((genre) => (
+              <GenresTab
+                key={genre.id}
+                genre={genre.name}
+                onTabClick={() => setCurrentGenreId(genre.id)}
+              />
+            ))}
+          </div>
+        )}
 
         {/* genre-wise search result */}
-        {isLoading && <p>Loading all data...</p>}
-        {!isLoading && (
+        {isLoading && !query && <p>Loading all data...</p>}
+        {!isLoading && !query && (
           <div className="genreWiseResults">
             {data?.results?.map((item, index) => (
               <GenreWiseMediaCard item={item} gridItem={index + 1} />
@@ -103,6 +167,31 @@ const Search = () => {
         )}
 
         {/* query-wise search result */}
+        {!isSearchLoading && (
+          <div className="searchResult">
+            {searchData?.results?.length > 0 ? (
+              <InfiniteScroll
+                className="searchResultCards"
+                dataLength={searchData?.results?.length}
+                hasMore={pageNumber <= searchData?.total_pages}
+                loader={<p>Loading...</p>}
+                next={fetchSearchDataForNextPage}
+              >
+                {searchData?.results?.map((item) => {
+                  return (
+                    <SearchResultCard
+                      key={item?.id}
+                      item={item}
+                      // mediaType={mediaType}
+                    />
+                  );
+                })}
+              </InfiniteScroll>
+            ) : (
+              <p>Sorry, no results found</p>
+            )}
+          </div>
+        )}
       </ContentWrapper>
     </div>
   );

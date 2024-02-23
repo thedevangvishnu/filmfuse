@@ -112,5 +112,25 @@
           "G13 G13 G18 G19 G20 G20";
       }
     }
+
+    .searchResult {
+      width: 100%;
+
+      .searchResultCards {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-flow: wrap;
+        padding-top: 10px;
+        padding-inline: 5px;
+        column-gap: 15px;
+        row-gap: 2rem;
+
+        @include lg {
+          column-gap: 20px;
+        }
+      }
+    }
   }
 }

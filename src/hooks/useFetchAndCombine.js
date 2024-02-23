@@ -23,7 +23,7 @@ const useFetchAndCombine = (genreId) => {
       const response = await Promise.all(promises);
 
       response.forEach(({ results }, resultsIndex) => {
-        // each element is the results array doesn't have an endpoint property that can tell which mediaType it is. Add the endpoint to each item in the results array
+        // each element in the results array doesn't have an endpoint property that can tell which mediaType it is. Add the endpoint to each item in the results array
         let modifiedResults;
         endpoints.forEach((endpoint, endpointIndex) => {
           if (resultsIndex === endpointIndex) {
