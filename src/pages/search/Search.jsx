@@ -132,6 +132,10 @@ const Search = () => {
     }
   };
 
+  const handleGenreTabClick = (genreId) => {
+    setCurrentGenreId(genreId);
+  };
+
   return (
     <div className="searchPage">
       <ContentWrapper>
@@ -143,11 +147,12 @@ const Search = () => {
         <div className="searchContainer">
           <input
             type="text"
+            value={query}
             placeholder="Search movies or tv shows"
             onChange={onSearchInputChange}
           />
-          <span>
-            <FaDeleteLeft className="closeIcon icon" />
+          <span onClick={() => setQuery("")}>
+            {query && <FaDeleteLeft className="clearIcon icon" />}
           </span>
         </div>
 
@@ -158,7 +163,7 @@ const Search = () => {
               <GenresTab
                 key={genre.id}
                 genre={genre.name}
-                onTabClick={() => setCurrentGenreId(genre.id)}
+                onTabClick={() => handleGenreTabClick(genre.id)}
               />
             ))}
           </div>

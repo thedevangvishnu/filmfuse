@@ -26,6 +26,11 @@
 
     .arrowIcon {
       font-size: 1.25rem;
+      transition: color 0.2s ease-in;
+
+      &:hover {
+        color: var(--purple);
+      }
     }
 
     .searchContainer {
@@ -51,9 +56,14 @@
         display: flex;
         align-items: center;
 
-        .closeIcon {
+        .clearIcon {
           color: var(--blackTwo);
           font-size: 1.25rem;
+          transition: color 0.2s ease-in;
+
+          &:hover {
+            color: var(--purple);
+          }
         }
       }
     }
@@ -79,8 +89,10 @@
           border: 1px solid var(--orange);
         }
 
-        .active {
+        .activeTab {
           background-color: var(--blackTwo);
+          color: var(--orange);
+          border: 1px solid var(--orange);
         }
       }
     }
