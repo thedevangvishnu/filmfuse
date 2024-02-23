@@ -75,7 +75,15 @@ const Search = () => {
   useEffect(() => {
     setPageNumber(1);
     setSearchData(null);
-    fetchInitialSearchData();
+
+    let timeout;
+
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      fetchInitialSearchData();
+    }, 200);
+
+    return () => clearTimeout(timeout);
   }, [query]);
 
   const onSearchInputChange = (e) => {
@@ -167,13 +175,14 @@ const Search = () => {
         )}
 
         {/* query-wise search result */}
-        {!isSearchLoading && (
+        {isSearchLoading && query && <p>Loading search results...</p>}
+        {!isSearchLoading && query && (
           <div className="searchResult">
             {searchData?.results?.length > 0 ? (
               <InfiniteScroll
                 className="searchResultCards"
                 dataLength={searchData?.results?.length}
-                hasMore={pageNumber <= searchData?.total_pages}
+                hasMore={pageNumber < searchData?.total_pages}
                 loader={<p>Loading...</p>}
                 next={fetchSearchDataForNextPage}
               >
