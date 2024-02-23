@@ -11,19 +11,23 @@ import Footer from "./components/footer/Footer";
 
 import { AppContext } from "./context/AppContext";
 
+import "./App.styles.scss";
+
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/searchPage" element={<Search />} />
-        <Route path="/search/:query" element={<SearchResult />} />
-        <Route path="/explore/:mediaType" element={<Explore />} />
-        <Route path="/:mediaType/:id" element={<Details />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <div className="app">
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/searchPage" element={<Search />} />
+          <Route path="/search/:query" element={<SearchResult />} />
+          <Route path="/explore/:mediaType" element={<Explore />} />
+          <Route path="/:mediaType/:id" element={<Details />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </div>
   );
 }
 

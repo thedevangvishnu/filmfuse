@@ -3,10 +3,11 @@
 .searchPage {
   width: 100%;
   min-height: 100vh;
-  max-height: 100%;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   background-color: var(--blackThree);
-  padding-block: 2rem 1rem;
+  padding-block: 2rem 4rem;
   z-index: 8;
 
   .contentWrapper {
