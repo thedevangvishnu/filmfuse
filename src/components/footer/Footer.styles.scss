@@ -11,7 +11,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 2rem 1rem;
+    padding: 2rem 0rem;
 
     @include md {
       padding: 3rem 2rem;
@@ -38,7 +38,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 1.2rem;
+        gap: 1rem;
 
         .footerMenuItem {
           color: white;

@@ -1,6 +1,8 @@
 @import "../../mixins.scss";
 
 .detailsContainer {
+  padding-bottom: 5rem;
+
   @include lg {
     padding-inline: 3rem;
   }

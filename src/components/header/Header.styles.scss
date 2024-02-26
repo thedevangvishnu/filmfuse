@@ -94,6 +94,7 @@
       display: flex;
       align-items: center;
       color: #ddd;
+      transition: transform 0.3s ease-in;
 
       @include md {
         display: none;
@@ -125,15 +126,24 @@
       align-items: center;
       width: 100%;
       position: absolute;
-      top: 60px;
+      top: 50px;
       left: 0;
+      opacity: 0;
       padding: 20px 0;
       background-color: var(--black);
+      animation: 0.3s ease-in forwards 1 showMobileMenu;
 
       .menuItem {
         padding: 16px 10px;
         cursor: pointer;
       }
     }
+  }
+}
+
+@keyframes showMobileMenu {
+  to {
+    top: 60px;
+    opacity: 1;
   }
 }

@@ -1,15 +1,8 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import {
-  FaXmark,
-  FaBars,
-  FaX,
-  FaDeleteLeft,
-  FaArrowLeft,
-} from "react-icons/fa6";
+import { FaDeleteLeft, FaArrowLeft } from "react-icons/fa6";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import useFetch from "../../hooks/useFetch";
 import useFetchAndCombine from "../../hooks/useFetchAndCombine";
 import fetchDataFromApi from "../../utils/api";
 
@@ -22,8 +15,6 @@ import SpinnerLoader from "../../components/spinnerLoader/SpinnerLoader";
 
 import "./Search.styles.scss";
 import BarLoader from "../../components/barLoader/BarLoader";
-
-const BASE_URL = "https://image.tmdb.org/t/p/original";
 
 const Search = () => {
   const [searchPageGenres, setSearchPageGenres] = useState([]);
@@ -184,6 +175,7 @@ const Search = () => {
 
         {/* genre-wise search result */}
         {isLoading && !query && <BarLoader />}
+
         {!isLoading && !query && (
           <div className="genreWiseResults">
             {data?.results?.map((item, index) => (

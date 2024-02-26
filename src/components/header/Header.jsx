@@ -15,7 +15,6 @@ const Header = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showMobileMenu, setShowMobileMenu] = useState(null);
   const [showSearch, setShowSearch] = useState(null);
-  const [query, setQuery] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -57,14 +56,6 @@ const Header = () => {
 
     const sourceRoute = location.pathname;
     navigate("/searchPage", { state: { source: sourceRoute } });
-  };
-
-  const onKeyUpHandler = (event) => {
-    if (event.target.value !== "" && event.key === "Enter") {
-      navigate(`/search/${query}`);
-      setShowSearch(false);
-      setQuery("");
-    }
   };
 
   const navigateToExplore = (type) => {

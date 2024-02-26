@@ -29,9 +29,6 @@ const Footer = () => {
             <Link to="/" className="footerMenuItem">
               Blog
             </Link>
-            <Link to="/" className="footerMenuItem">
-              Q&A
-            </Link>
           </div>
 
           <div className="footerContent">
