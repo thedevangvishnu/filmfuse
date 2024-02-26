@@ -7,12 +7,7 @@ import Genres from "../../../components/genres/Genres";
 
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 
-import {
-  FaPlay,
-  FaAngleRight,
-  FaAngleLeft,
-  FaLessThanEqual,
-} from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
 
 import useFetch from "../../../hooks/useFetch";
 
@@ -28,7 +23,7 @@ const ExploreBanner = ({ mediaType }) => {
   const [bg, setBg] = useState("");
   const [language, setLanguage] = useState("");
 
-  const bannerContainer = useRef();
+  const navigate = useNavigate();
 
   const { data, isLoading } = useFetch(`/${mediaType}/popular`);
 
@@ -90,19 +85,6 @@ const ExploreBanner = ({ mediaType }) => {
       setMediaIndex((prevIndex) => prevIndex + 1);
     }
   };
-
-  // const scrollContainer = (direction) => {
-  //   const container = bannerContainer.current;
-  //   const scrollWidth =
-  //     direction === "left"
-  //       ? container.scrollLeft - container.offsetWidth
-  //       : container.scrollLeft + container.offsetWidth;
-
-  //   container.scrollTo({
-  //     left: scrollWidth,
-  //     behavior: "smooth",
-  //   });
-  // };
 
   return (
     <div className="exploreBannerContainer">

@@ -3,6 +3,11 @@
 .carouselContainer {
   position: relative;
   margin-top: 15px;
+  min-height: 300px;
+
+  @include md {
+    min-height: 400px;
+  }
 
   .leftArrowContainer,
   .rightArrowContainer {
