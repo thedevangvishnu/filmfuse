@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import fetchDataFromApi from "../utils/api";
 
-import { RiMovie2Fill } from "react-icons/ri";
+import SpinnerLoader from "../components/spinnerLoader/SpinnerLoader";
 
 export const AppContext = createContext({
   genres: {},
@@ -44,7 +44,7 @@ export const AppProvider = ({ children }) => {
     <AppContext.Provider value={value}>
       {isGenresLoading ? (
         <div className="appLoader">
-          <RiMovie2Fill className="icon" />
+          <SpinnerLoader />
         </div>
       ) : (
         children
