@@ -18,6 +18,7 @@ import useFetch from "../../../hooks/useFetch";
 
 import "./ExploreBanner.styles.scss";
 import LazyImage from "../../../components/lazyLoadImage/LazyImage";
+import BarLoader from "../../../components/barLoader/BarLoader";
 
 const BASE_URL = "https://image.tmdb.org/t/p/original";
 
@@ -112,7 +113,7 @@ const ExploreBanner = ({ mediaType }) => {
       <div className="rightArrowContainer" onClick={handleRightArrow}>
         <FaCircleChevronRight className="arrow" />
       </div>
-
+      {isLoading && <BarLoader />}
       {!isLoading && (
         <>
           <div className="bannerContainer">
@@ -142,7 +143,7 @@ const ExploreBanner = ({ mediaType }) => {
 
               <div className={`genresContainer`}>
                 <Genres
-                  genreIds={mediaItem?.genre_ids.map((genre) => genre)}
+                  genreIds={mediaItem?.genre_ids?.map((genre) => genre)}
                   hasbars="true"
                 />
               </div>

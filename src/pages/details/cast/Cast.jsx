@@ -16,7 +16,7 @@ const Cast = ({ cast, castLoading }) => {
         <p className="sectionTitle">Top Cast</p>
         {!castLoading && (
           <div className="castItems">
-            {castListSorted.map((member) => {
+            {castListSorted?.map((member) => {
               return (
                 <div className="castItem" key={member.id}>
                   <div className="pictureContainer">

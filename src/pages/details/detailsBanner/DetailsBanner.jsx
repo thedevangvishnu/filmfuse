@@ -21,7 +21,7 @@ const DetailsBanner = ({ data, crew, videos, videosLoading }) => {
       videos?.results?.length > 0
         ? videos?.results?.filter(
             (item) => item?.type === "Trailer" || item?.type === "Teaser"
-          )[0].key
+          )[0]?.key
         : null;
 
     setVideoKey(videoKey);

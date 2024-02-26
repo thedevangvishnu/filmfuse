@@ -169,7 +169,7 @@ const HomeHeroBanner = () => {
                 }`}
               >
                 <Genres
-                  genreIds={item?.genre_ids.map((genre) => genre)}
+                  genreIds={item?.genre_ids?.map((genre) => genre)}
                   hasbars="true"
                 />
               </div>

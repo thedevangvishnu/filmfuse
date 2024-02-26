@@ -3,6 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 import MediaCard from "../../../components/mediaCard/MediaCard";
+import BarLoader from "../../../components/barLoader/BarLoader";
 
 import fetchDataFromApi from "../../../utils/api";
 
@@ -72,7 +73,8 @@ const ExploreMedia = ({ mediaType }) => {
         </div>
 
         <div className="mediaBody">
-          {isLoading && <p>Loading...</p>}
+          {/* {isLoading && <BarLoader />} */}
+
           {!isLoading && (
             <>
               {data?.results?.length > 0 ? (

@@ -8,6 +8,7 @@ import Cast from "./cast/Cast";
 import OfficialVideos from "./videos/OfficialVideos";
 import Similar from "./similar/Similar";
 import Recommended from "./recommended/Recommended";
+import BarLoader from "../../components/barLoader/BarLoader";
 
 import "./Details.styles.scss";
 
@@ -25,18 +26,23 @@ const Details = () => {
   );
 
   return (
-    <div className="detailsContainer">
-      <DetailsBanner
-        data={mediaData}
-        crew={creditsData?.crew}
-        videos={videos}
-        videosLoading={videosLoading}
-      />
-      <Cast cast={creditsData?.cast} castLoading={creditsDataLoading} />
-      <OfficialVideos videos={videos} videosLoading={videosLoading} />
-      <Similar mediaType={mediaType} id={id} />
-      <Recommended mediaType={mediaType} id={id} />
-    </div>
+    <>
+      {(mediaDataLoading || creditsDataLoading || videosLoading) && (
+        <BarLoader />
+      )}
+      <div className="detailsContainer">
+        <DetailsBanner
+          data={mediaData}
+          crew={creditsData?.crew}
+          videos={videos}
+          videosLoading={videosLoading}
+        />
+        <Cast cast={creditsData?.cast} castLoading={creditsDataLoading} />
+        <OfficialVideos videos={videos} videosLoading={videosLoading} />
+        <Similar mediaType={mediaType} id={id} />
+        <Recommended mediaType={mediaType} id={id} />
+      </div>
+    </>
   );
 };
 
