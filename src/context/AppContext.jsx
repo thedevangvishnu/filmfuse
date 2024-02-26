@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import fetchDataFromApi from "../utils/api";
 
+import { RiMovie2Fill } from "react-icons/ri";
+
 export const AppContext = createContext({
   genres: {},
 });
@@ -40,7 +42,13 @@ export const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={value}>
-      {isGenresLoading ? <h2>Loading data...</h2> : children}
+      {isGenresLoading ? (
+        <div className="appLoader">
+          <RiMovie2Fill className="icon" />
+        </div>
+      ) : (
+        children
+      )}
     </AppContext.Provider>
   );
 };

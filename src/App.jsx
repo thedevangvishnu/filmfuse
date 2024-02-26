@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./components/header/Header";
@@ -8,8 +8,6 @@ import SearchResult from "./pages/searchResult/SearchResult";
 import Explore from "./pages/explore/Explore";
 import Details from "./pages/details/Details";
 import Footer from "./components/footer/Footer";
-
-import { AppContext } from "./context/AppContext";
 
 import "./App.styles.scss";
 
