@@ -39,9 +39,7 @@ const Search = () => {
   }, []);
 
   useEffect(() => {
-    if (searchPageGenres.length > 0) {
-      setCurrentGenreId(searchPageGenres[0]?.id);
-    }
+    setCurrentGenreId(searchPageGenres[0]?.id);
   }, [searchPageGenres]);
 
   const populateGenresForSearchPage = () => {
