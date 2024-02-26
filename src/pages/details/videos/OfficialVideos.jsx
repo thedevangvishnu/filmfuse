@@ -20,6 +20,9 @@ const OfficialVideos = ({ videos, videosLoading }) => {
         <p className="sectionTitle">Official Videos</p>
         {!videosLoading && (
           <div className="videoItems">
+            {videos?.results?.length === 0 && (
+              <p className="notAvailable">No official videos found</p>
+            )}
             {videos?.results?.map((video) => {
               return (
                 <VideoItem

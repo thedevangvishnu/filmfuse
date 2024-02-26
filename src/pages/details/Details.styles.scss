@@ -43,4 +43,15 @@
       }
     }
   }
+
+  .notAvailable {
+    width: 100%;
+    padding: 1rem 0;
+    font-size: 1.1rem;
+    color: #aaa;
+
+    @include md {
+      font-size: 1.25rem;
+    }
+  }
 }

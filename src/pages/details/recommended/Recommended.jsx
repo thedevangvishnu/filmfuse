@@ -12,11 +12,15 @@ const Recommended = ({ mediaType, id }) => {
     <div className="recommendedContainer section">
       <ContentWrapper>
         <p className="sectionTitle">Recommendations</p>
-        <Carousel
-          content={data?.results}
-          isLoading={isLoading}
-          endPoint={mediaType}
-        />
+        {data?.results?.length === 0 ? (
+          <p className="notAvailable">No similar ${title} found</p>
+        ) : (
+          <Carousel
+            content={data?.results}
+            isLoading={isLoading}
+            endPoint={mediaType}
+          />
+        )}
       </ContentWrapper>
     </div>
   );
