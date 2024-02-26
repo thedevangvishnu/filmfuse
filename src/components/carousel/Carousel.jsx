@@ -8,6 +8,7 @@ import ContentWrapper from "../contentWrapper/ContentWrapper";
 import LazyImage from "../lazyLoadImage/LazyImage";
 import CircleRating from "../circleRating/CircleRating";
 import Genres from "../genres/Genres";
+import FallbackPoster from "../../assets/images/no-poster.png";
 
 const Carousel = ({ content, isLoading, endPoint }) => {
   const carouselItemsContainer = useRef();
@@ -45,7 +46,9 @@ const Carousel = ({ content, isLoading, endPoint }) => {
           {!isLoading &&
             content?.map((item) => {
               const posterPath = item?.poster_path;
-              const fullPosterUrl = BASE_URL + posterPath;
+              const fullPosterUrl = item?.poster_path
+                ? BASE_URL + posterPath
+                : FallbackPoster;
 
               return (
                 <div

@@ -40,6 +40,10 @@
         justify-content: center;
         gap: 1rem;
 
+        @include md {
+          gap: 2rem;
+        }
+
         .footerMenuItem {
           color: white;
           font-weight: 700;

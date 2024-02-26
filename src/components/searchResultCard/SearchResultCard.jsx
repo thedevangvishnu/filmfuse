@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LazyImage from "../lazyLoadImage/LazyImage";
 
+import FallbackPoster from "../../assets/images/no-poster.png";
+
 import "./SearchResultCard.styles.scss";
 
 const SearchResultCard = ({ item }) => {
@@ -18,7 +20,11 @@ const SearchResultCard = ({ item }) => {
     >
       <div className="posterContainer">
         <LazyImage
-          src={`${BASE_URL}/${item?.poster_path}`}
+          src={
+            item?.poster_path
+              ? `${BASE_URL}/${item?.poster_path}`
+              : FallbackPoster
+          }
           className="posterImg"
         />
       </div>
