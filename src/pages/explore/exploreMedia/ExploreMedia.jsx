@@ -3,7 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 import MediaCard from "../../../components/mediaCard/MediaCard";
-import BarLoader from "../../../components/barLoader/BarLoader";
+import SpinnerLoader from "../../../components/spinnerLoader/SpinnerLoader";
 
 import fetchDataFromApi from "../../../utils/api";
 
@@ -73,8 +73,6 @@ const ExploreMedia = ({ mediaType }) => {
         </div>
 
         <div className="mediaBody">
-          {/* {isLoading && <BarLoader />} */}
-
           {!isLoading && (
             <>
               {data?.results?.length > 0 ? (
@@ -82,7 +80,7 @@ const ExploreMedia = ({ mediaType }) => {
                   className="mediaCards"
                   dataLength={data?.results?.length}
                   hasMore={pageNumber <= data?.total_pages}
-                  loader={<p>Loading...</p>}
+                  loader={<SpinnerLoader />}
                   next={fetchDataForNextPage}
                 >
                   {data?.results?.map((item) => {

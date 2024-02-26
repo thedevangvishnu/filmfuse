@@ -17,6 +17,7 @@ const VideoPopup = ({ videoKey, showVideo, setShowVideo }) => {
             url={`https://www.youtube.com/watch?v=${videoKey}`}
             width="100%"
             height="100%"
+            stopOnUnmount
             controls
           />
         )}

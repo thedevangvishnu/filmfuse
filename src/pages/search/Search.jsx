@@ -16,11 +16,12 @@ import fetchDataFromApi from "../../utils/api";
 import { AppContext } from "../../context/AppContext";
 import ContentWrapper from "../../components/contentWrapper/ContentWrapper";
 import GenresTab from "../../components/genreTab/GenresTab";
-
 import GenreWiseMediaCard from "../../components/genreWiseMediaCard/GenreWiseMediaCard";
 import SearchResultCard from "../../components/searchResultCard/SearchResultCard";
+import SpinnerLoader from "../../components/spinnerLoader/SpinnerLoader";
 
 import "./Search.styles.scss";
+import BarLoader from "../../components/barLoader/BarLoader";
 
 const BASE_URL = "https://image.tmdb.org/t/p/original";
 
@@ -32,6 +33,8 @@ const Search = () => {
   const [isSearchLoading, setIsSearchLoading] = useState(null);
   const [searchError, setSearchError] = useState(null);
   const [pageNumber, setPageNumber] = useState(0);
+
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { genres } = useContext(AppContext);
 
@@ -73,6 +76,7 @@ const Search = () => {
   };
 
   const timeout = useRef();
+  const errorMsgTimeout = useRef();
 
   useEffect(() => {
     setPageNumber(1);
@@ -83,7 +87,16 @@ const Search = () => {
       fetchInitialSearchData();
     }, 200);
 
-    return () => clearTimeout(timeout.current);
+    if (searchData?.results?.length === 0) {
+      errorMsgTimeout.current = setTimeout(() => {
+        setErrorMessage("Sorry, no results found");
+      }, 500);
+    }
+
+    return () => {
+      clearTimeout(timeout.current);
+      clearTimeout(errorMsgTimeout.current);
+    };
   }, [query]);
 
   const onSearchInputChange = (e) => {
@@ -170,7 +183,7 @@ const Search = () => {
         )}
 
         {/* genre-wise search result */}
-        {isLoading && !query && <p>Loading all data...</p>}
+        {isLoading && !query && <BarLoader />}
         {!isLoading && !query && (
           <div className="genreWiseResults">
             {data?.results?.map((item, index) => (
@@ -180,31 +193,54 @@ const Search = () => {
         )}
 
         {/* query-wise search result */}
-        {isSearchLoading && query && <p>Loading search results...</p>}
+        {isSearchLoading && query && <BarLoader />}
         {!isSearchLoading && query && (
           <div className="searchResult">
-            {searchData?.results?.length > 0 ? (
-              <InfiniteScroll
-                className="searchResultCards"
-                dataLength={searchData?.results?.length}
-                hasMore={pageNumber < searchData?.total_pages}
-                loader={<p>Loading...</p>}
-                next={fetchSearchDataForNextPage}
-              >
-                {searchData?.results?.map((item) => {
-                  return (
-                    <SearchResultCard
-                      key={item?.id}
-                      item={item}
-                      // mediaType={mediaType}
-                    />
-                  );
-                })}
-              </InfiniteScroll>
-            ) : (
-              <p>Sorry, no results found</p>
+            {searchData?.results.length === 0 && (
+              <p className="errorMessage">{errorMessage}</p>
             )}
+            <InfiniteScroll
+              className="searchResultCards"
+              dataLength={searchData?.results?.length}
+              hasMore={pageNumber < searchData?.total_pages}
+              loader={<SpinnerLoader />}
+              next={fetchSearchDataForNextPage}
+            >
+              {searchData?.results?.map((item) => {
+                return (
+                  <SearchResultCard
+                    key={item?.id}
+                    item={item}
+                    // mediaType={mediaType}
+                  />
+                );
+              })}
+            </InfiniteScroll>
           </div>
+
+          // <div className="searchResult">
+          //   {searchData?.results?.length > 0 ? (
+          //     <InfiniteScroll
+          //       className="searchResultCards"
+          //       dataLength={searchData?.results?.length}
+          //       hasMore={pageNumber < searchData?.total_pages}
+          //       loader={<SpinnerLoader />}
+          //       next={fetchSearchDataForNextPage}
+          //     >
+          //       {searchData?.results?.map((item) => {
+          //         return (
+          //           <SearchResultCard
+          //             key={item?.id}
+          //             item={item}
+          //             // mediaType={mediaType}
+          //           />
+          //         );
+          //       })}
+          //     </InfiniteScroll>
+          //   ) : (
+          //     <p>{errorMessage}</p>
+          //   )}
+          // </div>
         )}
       </ContentWrapper>
     </div>

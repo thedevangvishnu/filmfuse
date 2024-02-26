@@ -1,0 +1,26 @@
+.spinnerLoaderContainer {
+  position: relative;
+  color: white;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+
+  .spinnerLoader {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    border: 5px solid var(--orange);
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: 0.7s ease-in infinite alternate showAppLoader;
+  }
+}
+
+@keyframes showAppLoader {
+  to {
+    transform: scale(1.2) rotate(360deg);
+  }
+}

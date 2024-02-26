@@ -49,38 +49,3 @@ button {
 ::-webkit-scrollbar {
   display: none;
 }
-
-// .root {
-//   opacity: 0;
-//   visibility: hidden;
-
-//   &.showRoot {
-//     opacity: 1;
-//     visibility: visible;
-//   }
-// }
-
-.appLoader {
-  position: absolute;
-  inset: 0;
-  opacity: 1;
-  visibility: visible;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--blackThree);
-
-  .icon {
-    color: white;
-    animation: 2s ease-in-out infinite alternate showAppLoader;
-  }
-}
-
-@keyframes showAppLoader {
-  to {
-    transform: rotate(360deg);
-    opacity: 1;
-  }
-}
