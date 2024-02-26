@@ -13,7 +13,7 @@ const Recommended = ({ mediaType, id }) => {
       <ContentWrapper>
         <p className="sectionTitle">Recommendations</p>
         {data?.results?.length === 0 ? (
-          <p className="notAvailable">No similar ${title} found</p>
+          <p className="notAvailable">No recommended ${title} found</p>
         ) : (
           <Carousel
             content={data?.results}
