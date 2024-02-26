@@ -7,12 +7,16 @@
 
   .detailsBackdropContainer {
     width: 100%;
-    height: 100%;
+    height: 400px;
     position: absolute;
     top: 0;
     left: 0;
     opacity: 0.1;
     overflow: hidden;
+
+    @include md {
+      height: 600px;
+    }
 
     .lazy-load-image-background {
       width: 100%;

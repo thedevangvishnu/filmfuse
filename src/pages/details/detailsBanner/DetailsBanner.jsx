@@ -57,9 +57,8 @@ const DetailsBanner = ({ data, crew, videos, videosLoading }) => {
     <div className="detailsBanner">
       <div className="detailsBackdropContainer">
         <LazyImage src={`${backdropUrl}`} />
+        <div className="overlayContainer"></div>
       </div>
-
-      <div className="overlayContainer"></div>
 
       <ContentWrapper>
         {/* left section */}
