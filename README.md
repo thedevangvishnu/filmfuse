@@ -35,7 +35,6 @@ Click on the banner down below to check out the demo of FilmFuse.
 
 - **ReactJS**: A JavaScript library for building user interfaces.
 - **SASS**: A preprocessor scripting language that is interpreted or compiled into CSS.
-- **TypeScript**: A superset of JavaScript that adds static types.
 - **TMDB API**: The Movie Database API to fetch extensive movie and TV show data.
 - **ReactContext API**: A way to manage state globally.
 - **Vercel**: A cloud platform for static sites and Serverless Functions.
