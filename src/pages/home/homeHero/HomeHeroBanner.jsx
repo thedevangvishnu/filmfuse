@@ -12,6 +12,7 @@ import useFetch from "../../../hooks/useFetch";
 
 import LazyImage from "../../../components/lazyLoadImage/LazyImage";
 import Genres from "../../../components/genres/Genres";
+import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 
 import "./HomeHeroBanner.styles.scss";
 
@@ -142,47 +143,50 @@ const HomeHeroBanner = () => {
         <>
           <div className="bannerItem">
             <LazyImage src={bg} />
+
             <div className="itemContent">
-              <h3 className={`title ${showAnimation ? "animate" : null}`}>
-                {item?.original_title || item?.title}
-              </h3>
+              <ContentWrapper>
+                <h3 className={`title ${showAnimation ? "animate" : null}`}>
+                  {item?.original_title || item?.title}
+                </h3>
 
-              <div className={`overview ${showAnimation ? "animate" : null}`}>
-                <p>{item?.overview}</p>
-              </div>
+                <div className={`overview ${showAnimation ? "animate" : null}`}>
+                  <p>{item?.overview}</p>
+                </div>
 
-              <div className={`metaData ${showAnimation ? "animate" : null}`}>
-                <p className="metaItem">
-                  {dayjs(item?.release_date).format("YYYY")}
-                </p>
-                <div className="dot"></div>
+                <div className={`metaData ${showAnimation ? "animate" : null}`}>
+                  <p className="metaItem">
+                    {dayjs(item?.release_date).format("YYYY")}
+                  </p>
+                  <div className="dot"></div>
 
-                <p className="metaItem">{language}</p>
-                <div className="dot"></div>
+                  <p className="metaItem">{language}</p>
+                  <div className="dot"></div>
 
-                <p className="metaItem">{!item?.adult ? "U/A" : "A"}</p>
-              </div>
+                  <p className="metaItem">{!item?.adult ? "U/A" : "A"}</p>
+                </div>
 
-              <div
-                className={`genresContainer ${
-                  showAnimation ? "animate" : null
-                }`}
-              >
-                <Genres
-                  genreIds={item?.genre_ids?.map((genre) => genre)}
-                  hasbars="true"
-                />
-              </div>
+                <div
+                  className={`genresContainer ${
+                    showAnimation ? "animate" : null
+                  }`}
+                >
+                  <Genres
+                    genreIds={item?.genre_ids?.map((genre) => genre)}
+                    hasbars="true"
+                  />
+                </div>
 
-              <div
-                className="watchButton"
-                onClick={() => navigate(`/movie/${item?.id}`)}
-              >
-                <span className="icon">
-                  <FaPlay />
-                </span>
-                <p>Watch Now</p>
-              </div>
+                <div
+                  className="watchButton"
+                  onClick={() => navigate(`/movie/${item?.id}`)}
+                >
+                  <span className="icon">
+                    <FaPlay />
+                  </span>
+                  <p>Watch Now</p>
+                </div>
+              </ContentWrapper>
             </div>
           </div>
 

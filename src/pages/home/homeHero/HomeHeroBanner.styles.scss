@@ -38,19 +38,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-left: 2rem;
-      padding-right: 0.5rem;
-      gap: 0.5rem;
       z-index: 1;
-
-      @include md {
-        padding-left: 3.25rem;
-        gap: 1rem;
-      }
-
-      @include xl {
-        padding-left: 7rem;
-      }
 
       &::before {
         content: "";
@@ -65,180 +53,198 @@
         );
       }
 
-      .title {
-        font-size: 2.5rem;
-        font-weight: 800;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      .contentWrapper {
+        padding-left: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 0.5rem;
 
         @include md {
-          font-size: 3.5rem;
-          max-width: 70%;
-        }
-
-        @include xl {
-          font-size: 4rem;
-        }
-      }
-
-      .overview {
-        max-width: 80%;
-
-        @include md {
-          max-width: 50%;
+          padding-left: 3rem;
+          gap: 1rem;
         }
 
         @include lg {
-          max-width: 35%;
-          margin-top: -1rem;
+          min-width: 1200px;
         }
 
-        p {
-          width: 100%;
+        .title {
+          font-size: 2.5rem;
+          font-weight: 800;
           display: -webkit-box;
+          -webkit-line-clamp: 1;
           -webkit-box-orient: vertical;
-          -webkit-line-clamp: 3;
           overflow: hidden;
           text-overflow: ellipsis;
-        }
-      }
-
-      .metaData {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-
-        @include md {
-          gap: 0.85rem;
-        }
-
-        .metaItem {
-          font-size: 1rem;
-          font-weight: 700;
 
           @include md {
-            font-size: 1.2rem;
+            font-size: 3.5rem;
+            max-width: 50%;
           }
 
-          &:nth-last-child(1) {
-            background-color: rgba(255, 255, 255, 0.2);
-            // padding: 0.1rem 1rem;
-            width: 60px;
-            height: 30px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+          @include xl {
+            font-size: 4rem;
+          }
+        }
+
+        .overview {
+          max-width: 80%;
+
+          @include md {
+            max-width: 50%;
+          }
+
+          @include lg {
+            max-width: 35%;
+            margin-top: -1rem;
+          }
+
+          p {
+            width: 100%;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+
+        .metaData {
+          display: flex;
+          gap: 0.5rem;
+          align-items: center;
+
+          @include md {
+            gap: 0.85rem;
+          }
+
+          .metaItem {
+            font-size: 1rem;
+            font-weight: 700;
 
             @include md {
-              width: 80px;
-              height: 35px;
+              font-size: 1.2rem;
+            }
+
+            &:nth-last-child(1) {
+              background-color: rgba(255, 255, 255, 0.2);
+              // padding: 0.1rem 1rem;
+              width: 60px;
+              height: 30px;
+              border-radius: 5px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              @include md {
+                width: 80px;
+                height: 35px;
+              }
+            }
+          }
+
+          .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #aaa;
+          }
+        }
+
+        .genresContainer {
+          .genres {
+            margin-left: -5px;
+            display: flex;
+            flex-wrap: wrap;
+            line-height: 1.1;
+            gap: 0.25rem;
+
+            @include md {
+              gap: 0.5rem;
+            }
+
+            .genreItem {
+              font-size: 0.85rem;
+              box-shadow: none;
+              background-color: transparent;
+
+              @include md {
+                font-size: 1rem;
+              }
+            }
+
+            .bar {
+              height: 12px;
+              width: 1px;
+              background-color: #aaa;
+
+              @include md {
+                width: 2px;
+                height: 15px;
+              }
             }
           }
         }
 
-        .dot {
-          width: 5px;
-          height: 5px;
-          border-radius: 50%;
-          background-color: #aaa;
-        }
-      }
-
-      .genresContainer {
-        .genres {
-          margin-left: -5px;
+        .watchButton {
           display: flex;
-          flex-wrap: wrap;
-          line-height: 1.1;
-          gap: 0.25rem;
+          align-items: center;
+          justify-content: center;
+          gap: 0.4rem;
+          width: 40%;
+          height: 3rem;
+          margin-top: 1rem;
+          font-size: 0.9rem;
+          background-color: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(2px);
+          border-radius: 10px;
+          cursor: pointer;
+          transition: background-color 0.3s ease-in;
 
           @include md {
-            gap: 0.5rem;
+            height: 3.5rem;
+            font-size: 1.1rem;
           }
 
-          .genreItem {
-            font-size: 0.85rem;
-            box-shadow: none;
-            background-color: transparent;
+          @include lg {
+            width: 30%;
+          }
+
+          .icon,
+          p {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            color: white;
+            transition: color 0.3s ease-in;
+          }
+
+          .icon {
+            font-size: 0.8rem;
+            margin-top: -2px;
 
             @include md {
               font-size: 1rem;
             }
           }
 
-          .bar {
-            height: 12px;
-            width: 1px;
-            background-color: #aaa;
+          p {
+            font-weight: 600;
 
-            @include md {
-              width: 2px;
-              height: 15px;
+            @include xl {
+              font-weight: 700;
             }
           }
-        }
-      }
 
-      .watchButton {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.4rem;
-        width: 40%;
-        height: 3rem;
-        margin-top: 1rem;
-        font-size: 0.9rem;
-        background-color: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(2px);
-        border-radius: 10px;
-        cursor: pointer;
-        transition: background-color 0.3s ease-in;
+          &:hover {
+            background-color: #ddd;
 
-        @include md {
-          height: 3.5rem;
-          font-size: 1.1rem;
-        }
-
-        @include lg {
-          width: 30%;
-        }
-
-        .icon,
-        p {
-          height: 100%;
-          display: flex;
-          align-items: center;
-          color: white;
-          transition: color 0.3s ease-in;
-        }
-
-        .icon {
-          font-size: 0.8rem;
-          margin-top: -2px;
-
-          @include md {
-            font-size: 1rem;
-          }
-        }
-
-        p {
-          font-weight: 600;
-
-          @include xl {
-            font-weight: 700;
-          }
-        }
-
-        &:hover {
-          background-color: #ddd;
-
-          .icon,
-          p {
-            color: var(--blackTwo);
+            .icon,
+            p {
+              color: var(--blackTwo);
+            }
           }
         }
       }
