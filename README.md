@@ -17,7 +17,7 @@ Click on the banner down below to check out the demo of FilmFuse.
 
 <p align="center">
   <a href="https://drive.google.com/file/d/1FwkitUKs8hxBC9rhknYws0OXnrHWlCwM/view?usp=sharing" target="_blank">
-    <img src="./src/assets/images/video-banner.png" alt="FilmFuse Logo" width="600"/>
+    <img src="./src/assets/images/video-banner.png" alt="FilmFuse Logo" width="100%"/>
   </a>
 </p>
 
