@@ -27,21 +27,20 @@ const Carousel = ({ content, isLoading, endPoint }) => {
 
   return (
     <div className="carouselContainer">
-      <div
-        className="leftArrowContainer"
-        onClick={() => scrollContainer("left")}
-      >
-        <FaCircleChevronLeft className="arrow" />
-      </div>
-
-      <div
-        className="rightArrowContainer"
-        onClick={() => scrollContainer("right")}
-      >
-        <FaCircleChevronRight className="arrow" />
-      </div>
-
       <ContentWrapper>
+        <div
+          className="leftArrowContainer"
+          onClick={() => scrollContainer("left")}
+        >
+          <FaCircleChevronLeft className="arrow" />
+        </div>
+
+        <div
+          className="rightArrowContainer"
+          onClick={() => scrollContainer("right")}
+        >
+          <FaCircleChevronRight className="arrow" />
+        </div>
         <div className="carouselItems" ref={carouselItemsContainer}>
           {!isLoading &&
             content?.map((item) => {

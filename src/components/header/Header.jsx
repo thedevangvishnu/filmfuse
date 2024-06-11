@@ -5,7 +5,7 @@ import { FaXmark, FaBars, FaX } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 
 import ContentWrapper from "../contentWrapper/ContentWrapper";
-import Logo from "../../assets/images/logo.png";
+import Logo from "../../assets/images/logo-app.png";
 import Search from "../../pages/search/Search";
 
 import "./Header.styles.scss";

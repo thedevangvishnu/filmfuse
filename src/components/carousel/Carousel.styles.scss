@@ -4,6 +4,7 @@
   position: relative;
   margin-top: 15px;
   min-height: 300px;
+  // background-color: red;
 
   @include md {
     min-height: 400px;
@@ -22,13 +23,13 @@
 
   .leftArrowContainer {
     @include md {
-      left: 40px;
+      left: 35px;
     }
   }
 
   .rightArrowContainer {
     @include md {
-      right: 30px;
+      right: 28px;
     }
   }
 
@@ -58,6 +59,7 @@
 
       .carouselItem {
         min-width: 150px;
+        min-height: 300px;
         cursor: pointer;
         padding-block: 15px;
         margin-right: 20px;
